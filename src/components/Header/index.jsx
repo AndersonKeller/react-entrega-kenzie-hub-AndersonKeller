@@ -1,9 +1,10 @@
 import { StyledHeader } from "./styles";
+import Logo from "../../../src/Logo.png";
 
 export function Header() {
   return (
     <StyledHeader>
-      <h1>Kenzie Hub</h1>
+      <img src={Logo} alt="" />
       <button>Voltar</button>
     </StyledHeader>
   );

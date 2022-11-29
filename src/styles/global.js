@@ -28,6 +28,7 @@ export const GLobalStyles = createGlobalStyle`
     }
     body{
         font-family: 'Inter', sans-serif;
+        
     }
     button{
         cursor: pointer;
