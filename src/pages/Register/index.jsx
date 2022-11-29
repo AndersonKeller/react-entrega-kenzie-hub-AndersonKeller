@@ -1,6 +1,7 @@
+import { StyledForm } from "../../styles/StyledForm";
 export function Register() {
   return (
-    <form>
+    <StyledForm>
       <h2>Crie sua conta</h2>
       <p>Rapido e grátis, vamos nessa</p>
       <label htmlFor="">Nome</label>
@@ -22,6 +23,6 @@ export function Register() {
         <option value="Terceiro módulo">Terceiro módulo</option>
       </select>
       <button type="submit">Cadastrar</button>
-    </form>
+    </StyledForm>
   );
 }
