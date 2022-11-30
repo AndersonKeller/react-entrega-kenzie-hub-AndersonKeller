@@ -28,7 +28,8 @@ export const GLobalStyles = createGlobalStyle`
     }
     body{
         font-family: 'Inter', sans-serif;
-        
+        background-color: #000;
+        padding: 0 1rem;
     }
     button{
         cursor: pointer;
