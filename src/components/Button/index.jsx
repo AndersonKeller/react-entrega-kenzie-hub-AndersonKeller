@@ -1,5 +1,9 @@
 import { StyledButton } from "./styles";
-export function Button({ text, color }) {
+export function Button({ text, color, type }) {
   console.log(color);
-  return <StyledButton color={color}>{text}</StyledButton>;
+  return (
+    <StyledButton type={type} color={color}>
+      {text}
+    </StyledButton>
+  );
 }

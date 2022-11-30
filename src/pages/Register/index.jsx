@@ -4,7 +4,7 @@ import { StyledForm } from "../../styles/StyledForm";
 export function Register() {
   return (
     <>
-      <Header></Header>
+      <Header isButton={true}></Header>
       <StyledForm>
         <h2>Crie sua conta</h2>
         <p>Rapido e grátis, vamos nessa</p>
@@ -26,7 +26,7 @@ export function Register() {
           <option value="Segundo módulo">Segundo módulo</option>
           <option value="Terceiro módulo">Terceiro módulo</option>
         </select>
-        <Button color={"default"} text={"Cadastrar"} type="submit"></Button>
+        <Button type={"submit"} color={"default"} text={"Cadastrar"}></Button>
       </StyledForm>
     </>
   );

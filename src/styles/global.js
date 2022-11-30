@@ -38,5 +38,6 @@ export const GLobalStyles = createGlobalStyle`
         font-weight: 500;
         line-height: 26px;
         border: none;
+        padding: 0.5rem 1rem;
     }
 `;
