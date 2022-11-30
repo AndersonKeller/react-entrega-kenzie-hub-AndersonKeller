@@ -7,9 +7,21 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export function Login() {
   const [user, setUser] = useState("");
+  const [token, setToken] = useState("");
+
+  function notify(message) {
+    return toast(message);
+  }
+
+  function defineUser(user, token) {
+    setUser(user);
+    setToken(token);
+  }
+
   const loginSchema = yup.object().shape({
     email: yup.string().required("email obrigatório").email("formato inválido"),
     password: yup.string().required("senha obrigatória"),
@@ -23,15 +35,19 @@ export function Login() {
       try {
         const resp = await api
           .post("/sessions", data)
-          .then((response) => setUser(response.data.user));
-        return resp;
+          .then((response) =>
+            defineUser(response.data.user, response.data.token)
+          );
+        return notify("Deu");
       } catch (error) {
-        console.log(error);
+        return notify("Login inválido");
+      } finally {
       }
     }
     loginApi();
   }
-  console.log(user);
+  // console.log(user);
+  // console.log(token);
 
   return (
     <>

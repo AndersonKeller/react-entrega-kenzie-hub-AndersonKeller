@@ -27,6 +27,7 @@ export const StyledForm = styled.form`
   select {
     background-color: var(--color-gray2);
     border: none;
+    color: var(--color-gray0);
     height: 40px;
     padding-left: 1rem;
     &::placeholder {
