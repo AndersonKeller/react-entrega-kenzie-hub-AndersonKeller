@@ -1,4 +1,5 @@
 import { Header } from "../../components/Header";
+import { Button } from "../../components/Button";
 import { StyledForm } from "../../styles/StyledForm";
 export function Register() {
   return (
@@ -25,7 +26,7 @@ export function Register() {
           <option value="Segundo módulo">Segundo módulo</option>
           <option value="Terceiro módulo">Terceiro módulo</option>
         </select>
-        <button type="submit">Cadastrar</button>
+        <Button color={"default"} text={"Cadastrar"} type="submit"></Button>
       </StyledForm>
     </>
   );

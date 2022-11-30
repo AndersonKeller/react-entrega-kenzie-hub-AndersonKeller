@@ -29,12 +29,12 @@ export const StyledForm = styled.form`
     border: none;
     height: 40px;
     padding-left: 1rem;
-    &::placeholder,
-    select {
+    &::placeholder {
       color: var(--color-gray1);
     }
   }
-  option {
+  option,
+  select {
     color: var(--color-gray1);
   }
 `;
