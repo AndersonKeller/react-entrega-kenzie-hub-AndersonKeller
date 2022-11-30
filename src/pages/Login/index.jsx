@@ -6,8 +6,10 @@ import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 
 export function Login() {
+  const [user, setUser] = useState("");
   const loginSchema = yup.object().shape({
     email: yup.string().required("email obrigatório").email("formato inválido"),
     password: yup.string().required("senha obrigatória"),
@@ -15,11 +17,22 @@ export function Login() {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  function onSubmitApi(data) {
+  async function onSubmitApi(data) {
     console.log(data);
-    api.get("/users").then((response) => console.log(response));
+    async function loginApi() {
+      try {
+        const resp = await api
+          .post("/sessions", data)
+          .then((response) => setUser(response.data.user));
+        return resp;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    loginApi();
   }
-  onSubmitApi();
+  console.log(user);
+
   return (
     <>
       <Header isButton={false}></Header>
