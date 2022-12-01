@@ -5,13 +5,32 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "../../components/Button";
+import { toast } from "react-toastify";
 import { StyledButton } from "../../components/Button/styles";
 
 import { StyledForm } from "../../styles/StyledForm";
+import { api } from "../../services/api";
 
 export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
   const [techs, setTechs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(
+    JSON.parse(window.localStorage.getItem("user"))
+  );
+  console.log(user);
+  function userUpdate() {
+    const idUser = JSON.parse(window.localStorage.getItem("userId"));
+    async function getUpdateUser() {
+      await api
+        .get(`/users/${idUser}`)
+        .then((response) =>
+          window.localStorage.setItem("user", JSON.stringify(response.data))
+        );
+      setUser(JSON.parse(window.localStorage.getItem("user")));
+    }
+    getUpdateUser();
+  }
   function deleteToken() {
     window.localStorage.removeItem("token");
     window.localStorage.removeItem("userId");
@@ -45,12 +64,42 @@ export function Dashboard() {
 
     return setTechs(user.techs);
   }
+  function notify(message, type) {
+    type === "error" ? toast.error(message) : toast.success(message);
+  }
   function submitApi(data) {
     console.log(data);
+    async function createTech() {
+      const token = window.localStorage.getItem("token");
+      console.log(token);
+      try {
+        setLoading(true);
+        await api
+          .post("/users/techs", data, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then(() => userUpdate());
+        reset();
+        notify("Criado com sucesso");
+
+        setTimeout(() => {
+          setShowForm(!showForm);
+        }, 3000);
+      } catch (error) {
+        return notify("algo deu errado, não criado", "error");
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
+      }
+    }
+    createTech();
   }
   useEffect(() => {
     getUserTechs();
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -74,7 +123,7 @@ export function Dashboard() {
               <option value="Intermediário">Intermediário</option>
               <option value="Avançado">Avançado</option>
             </select>
-            <StyledButton type={"submit"} color={"default"}>
+            <StyledButton loading={loading} type={"submit"} color={"default"}>
               Cadastrar tecnologia
             </StyledButton>
           </StyledForm>
