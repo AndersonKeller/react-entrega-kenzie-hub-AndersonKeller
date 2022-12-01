@@ -1,6 +1,5 @@
 import { StyledHeader } from "./styles";
 import Logo from "../../../src/Logo.png";
-import { Button } from "../Button";
 import { Link } from "react-router-dom";
 
 export function Header({ isButton, text, onclick }) {

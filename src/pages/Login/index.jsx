@@ -41,7 +41,7 @@ export function Login() {
     console.log(data);
     async function loginApi() {
       try {
-        const resp = await api
+        await api
           .post("/sessions", data)
           .then((response) =>
             defineUser(response.data.user, response.data.token)
@@ -49,7 +49,7 @@ export function Login() {
         setTimeout(() => {
           navigate("/dashboard");
         }, 3000);
-
+        setLoading(false);
         return notify("Deu");
       } catch (error) {
         setLoading(false);
@@ -93,13 +93,18 @@ export function Login() {
         />
         {errors.password?.message && <span>{errors.password.message}</span>}
         {!loading ? (
-          <Button type={"submit"} color={"default"} text={"Entrar"}></Button>
+          <Button
+            loading={loading}
+            type={"submit"}
+            color={"default"}
+            text={"Entrar"}
+          ></Button>
         ) : (
           <StyledButton
             type={"submit"}
             color={"default"}
             text={"Entrar"}
-            loading={true}
+            loading={loading}
             disabled
           >
             Entrar

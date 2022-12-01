@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 export const StyledButton = styled.button`
-  ${console.log()}
   ${({ color }) =>
     color === "default"
       ? css`
@@ -17,8 +16,8 @@ export const StyledButton = styled.button`
           background-color: var(--color-gray2);
           color: var(--color-gray0);
         `}
-        ${({ loading }) =>
-    loading &&
+  ${({ loading }) =>
+    loading === true &&
     css`
       background-color: var(--color-primary-negative);
     `}

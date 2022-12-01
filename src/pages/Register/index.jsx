@@ -49,7 +49,7 @@ export function Register() {
         setTimeout(() => {
           navigate("/login");
         }, 3000);
-        return notify("Deu certo");
+        return notify("Login realizado com sucesso");
       } catch (error) {
         console.log(error);
         return notify(error.response.data.message, "error");
