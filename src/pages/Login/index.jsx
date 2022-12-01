@@ -6,12 +6,15 @@ import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
   const [user, setUser] = useState("");
   const [token, setToken] = useState("");
+  const [page, setPage] = useState(false);
+  const navigate = useNavigate();
 
   function notify(message) {
     return toast(message);
@@ -29,7 +32,7 @@ export function Login() {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  async function onSubmitApi(data) {
+  function onSubmitApi(data) {
     console.log(data);
     async function loginApi() {
       try {
@@ -48,6 +51,14 @@ export function Login() {
   }
   // console.log(user);
   // console.log(token);
+  useEffect(() => {
+    if (page) {
+      navigate("/register");
+    }
+  }, [page]);
+  function onClickHeader() {
+    setPage(false);
+  }
 
   return (
     <>
@@ -70,7 +81,12 @@ export function Login() {
         />
         <Button type={"submit"} color={"default"} text={"Entrar"}></Button>
         <p>Ainda não possui uma conta?</p>
-        <StyledButton type={"button"} color={"goRegister"} text={"Cadastre-se"}>
+        <StyledButton
+          onClick={() => setPage(true)}
+          type={"button"}
+          color={"goRegister"}
+          text={"Cadastre-se"}
+        >
           Cadastre-se
         </StyledButton>
       </StyledForm>
