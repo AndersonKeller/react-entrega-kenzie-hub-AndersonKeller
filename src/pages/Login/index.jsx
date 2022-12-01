@@ -30,7 +30,11 @@ export function Login() {
     email: yup.string().required("email obrigatório").email("formato inválido"),
     password: yup.string().required("senha obrigatória"),
   });
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(loginSchema),
   });
   function onSubmitApi(data) {
@@ -82,6 +86,7 @@ export function Login() {
           placeholder="Digite seu email"
           {...register("email")}
         />
+        {errors.email?.message && <span>{errors.email.message}</span>}
         <label htmlFor="password">Senha</label>
         <input
           id="password"
@@ -89,6 +94,7 @@ export function Login() {
           placeholder="Digite sua senha"
           {...register("password")}
         />
+        {errors.password?.message && <span>{errors.password.message}</span>}
         {!loading ? (
           <Button type={"submit"} color={"default"} text={"Entrar"}></Button>
         ) : (

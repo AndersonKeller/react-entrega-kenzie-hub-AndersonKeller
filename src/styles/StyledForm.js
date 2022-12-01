@@ -20,6 +20,10 @@ export const StyledForm = styled.form`
   p {
     color: var(--color-gray1);
   }
+  span {
+    color: var(--color-negative);
+    font-weight: 500;
+  }
   p,
   label {
     font-size: var(--font-text);
