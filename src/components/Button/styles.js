@@ -17,4 +17,9 @@ export const StyledButton = styled.button`
           background-color: var(--color-gray2);
           color: var(--color-gray0);
         `}
+        ${({ loading }) =>
+    loading &&
+    css`
+      background-color: var(--color-primary-negative);
+    `}
 `;

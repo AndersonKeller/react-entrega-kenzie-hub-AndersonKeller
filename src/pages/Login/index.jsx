@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 export function Login() {
   const [user, setUser] = useState("");
   const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(false);
   const navigate = useNavigate();
 
@@ -44,10 +45,16 @@ export function Login() {
         setTimeout(() => {
           navigate("/dashboard");
         }, 3000);
+
         return notify("Deu");
       } catch (error) {
+        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
         return notify("Login inválido");
       } finally {
+        setLoading(true);
       }
     }
     loginApi();
@@ -82,7 +89,19 @@ export function Login() {
           placeholder="Digite sua senha"
           {...register("password")}
         />
-        <Button type={"submit"} color={"default"} text={"Entrar"}></Button>
+        {!loading ? (
+          <Button type={"submit"} color={"default"} text={"Entrar"}></Button>
+        ) : (
+          <StyledButton
+            type={"submit"}
+            color={"default"}
+            text={"Entrar"}
+            loading={true}
+            disabled
+          >
+            Entrar
+          </StyledButton>
+        )}
         <p>Ainda não possui uma conta?</p>
         <StyledButton
           onClick={() => setPage(true)}
