@@ -10,7 +10,11 @@ export function Button({ text, color, type }) {
     }
   }, [page]);
   const navigate = useNavigate();
-  return (
+  return type === "submit" ? (
+    <StyledButton type={type} color={color}>
+      {text}
+    </StyledButton>
+  ) : (
     <StyledButton onClick={() => setPage(true)} type={type} color={color}>
       {text}
     </StyledButton>

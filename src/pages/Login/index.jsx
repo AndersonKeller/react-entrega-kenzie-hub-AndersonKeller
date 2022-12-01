@@ -70,9 +70,6 @@ export function Login() {
       navigate("/register");
     }
   }, [page]);
-  function onClickHeader() {
-    setPage(false);
-  }
 
   return (
     <>
