@@ -18,7 +18,7 @@ export function Login() {
   const navigate = useNavigate();
 
   function notify(message) {
-    return toast(message);
+    return toast.success(message);
   }
 
   function defineUser(user, token) {

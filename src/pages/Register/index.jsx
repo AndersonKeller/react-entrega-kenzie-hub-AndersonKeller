@@ -4,9 +4,12 @@ import { StyledForm } from "../../styles/StyledForm";
 import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 
 export function Register() {
+  const navigate = useNavigate();
   const registerSchema = yup.object().shape({
     name: yup
       .string()
@@ -32,8 +35,27 @@ export function Register() {
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
+  function notify(message) {
+    return toast.success(message);
+  }
+
   function onSubmitApi(data) {
     console.log(data);
+    async function registerApi() {
+      try {
+        await api.post("/users", data).then((response) => {
+          console.log(response);
+        });
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+        return notify("Deu certo");
+      } catch (error) {
+        console.log(error);
+        return notify("deu ruim");
+      }
+    }
+    registerApi();
   }
   return (
     <>
