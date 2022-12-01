@@ -60,7 +60,9 @@ export function Register() {
         reset({ password: "", passwordValidate: "" });
         return notify(error.response.data.message, "error");
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
       }
     }
     registerApi();

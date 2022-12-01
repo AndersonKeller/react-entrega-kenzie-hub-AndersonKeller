@@ -25,6 +25,8 @@ export function Login() {
     setUser(user);
     setToken(token);
     window.localStorage.setItem("token", token);
+    window.localStorage.setItem("userId", JSON.stringify(user.id));
+    window.localStorage.setItem("user", JSON.stringify(user));
   }
 
   const loginSchema = yup.object().shape({
@@ -60,7 +62,9 @@ export function Login() {
         reset();
         return notify("Login inválido", "error");
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
       }
     }
     loginApi();
