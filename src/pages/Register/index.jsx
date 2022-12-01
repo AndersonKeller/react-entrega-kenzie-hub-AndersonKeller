@@ -35,8 +35,8 @@ export function Register() {
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
-  function notify(message) {
-    return toast.success(message);
+  function notify(message, type) {
+    type === "error" ? toast.error(message) : toast.success(message);
   }
 
   function onSubmitApi(data) {
@@ -52,7 +52,7 @@ export function Register() {
         return notify("Deu certo");
       } catch (error) {
         console.log(error);
-        return notify("deu ruim");
+        return notify(error.response.data.message, "error");
       }
     }
     registerApi();
