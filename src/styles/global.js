@@ -30,6 +30,8 @@ export const GLobalStyles = createGlobalStyle`
         font-family: 'Inter', sans-serif;
         background-color: #000;
         padding: 0 1rem;
+        width: 400px;
+        margin: 0 auto;
     }
     button{
         cursor: pointer;
