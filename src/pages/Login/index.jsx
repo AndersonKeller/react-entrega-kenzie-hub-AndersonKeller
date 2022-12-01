@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export function Login() {
   const [user, setUser] = useState("");
@@ -106,14 +106,9 @@ export function Login() {
           </StyledButton>
         )}
         <p>Ainda não possui uma conta?</p>
-        <StyledButton
-          onClick={() => setPage(true)}
-          type={"button"}
-          color={"goRegister"}
-          text={"Cadastre-se"}
-        >
+        <Link to={"/register"} color={"goRegister"}>
           Cadastre-se
-        </StyledButton>
+        </Link>
       </StyledForm>
     </>
   );

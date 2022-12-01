@@ -43,4 +43,9 @@ export const StyledForm = styled.form`
   select {
     color: var(--color-gray1);
   }
+  a {
+    background-color: var(--color-gray1);
+    color: var(--color-gray0);
+    text-align: center;
+  }
 `;

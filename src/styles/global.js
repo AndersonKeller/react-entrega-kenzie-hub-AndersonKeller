@@ -33,7 +33,7 @@ export const GLobalStyles = createGlobalStyle`
         width: 400px;
         margin: 0 auto;
     }
-    button{
+    button,a{
         cursor: pointer;
         font-size: var(--font-title2);
         border-radius: 4px;
@@ -41,5 +41,10 @@ export const GLobalStyles = createGlobalStyle`
         line-height: 26px;
         border: none;
         padding: 0.5rem 1rem;
+        text-decoration: none;
     }
+    a:hover{
+        background-color: var(--color-gray2);
+    }
+
 `;
