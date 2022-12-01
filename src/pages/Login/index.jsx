@@ -41,6 +41,9 @@ export function Login() {
           .then((response) =>
             defineUser(response.data.user, response.data.token)
           );
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 3000);
         return notify("Deu");
       } catch (error) {
         return notify("Login inválido");
