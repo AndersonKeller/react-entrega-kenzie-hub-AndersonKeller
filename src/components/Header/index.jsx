@@ -7,8 +7,8 @@ export function Header({ isButton, text, onclick }) {
     <StyledHeader isButton={isButton}>
       <img src={Logo} alt="" />
       {isButton ? (
-        <Link to={"/login"} color={"header"} text={text}>
-          Voltar
+        <Link onClick={onclick} to={"/login"} color={"header"} text={text}>
+          {text}
         </Link>
       ) : (
         ""

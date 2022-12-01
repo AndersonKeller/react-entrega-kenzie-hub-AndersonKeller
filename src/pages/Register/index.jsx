@@ -7,9 +7,11 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export function Register() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const registerSchema = yup.object().shape({
     name: yup
       .string()
@@ -32,7 +34,9 @@ export function Register() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
+    mode: "onBlur",
     resolver: yupResolver(registerSchema),
   });
   function notify(message, type) {
@@ -43,6 +47,7 @@ export function Register() {
     console.log(data);
     async function registerApi() {
       try {
+        setLoading(true);
         await api.post("/users", data).then((response) => {
           console.log(response);
         });
@@ -52,7 +57,10 @@ export function Register() {
         return notify("Login realizado com sucesso");
       } catch (error) {
         console.log(error);
+        reset({ password: "", passwordValidate: "" });
         return notify(error.response.data.message, "error");
+      } finally {
+        setLoading(false);
       }
     }
     registerApi();
@@ -101,7 +109,12 @@ export function Register() {
         {errors.course_module?.message && (
           <span>{errors.course_module.message}</span>
         )}
-        <Button type="submit" color={"default"} text={"Cadastrar"}></Button>
+        <Button
+          loading={loading}
+          type="submit"
+          color={"default"}
+          text={"Cadastrar"}
+        ></Button>
       </StyledForm>
     </>
   );

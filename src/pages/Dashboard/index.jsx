@@ -1,5 +1,8 @@
 import { Header } from "../../components/Header";
 
 export function Dashboard() {
-  return <Header isButton={true} text={"Sair"}></Header>;
+  function deleteToken() {
+    window.localStorage.removeItem("token");
+  }
+  return <Header isButton={true} onclick={deleteToken} text={"Sair"}></Header>;
 }

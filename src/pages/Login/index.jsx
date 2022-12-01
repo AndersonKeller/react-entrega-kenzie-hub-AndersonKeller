@@ -24,6 +24,7 @@ export function Login() {
   function defineUser(user, token) {
     setUser(user);
     setToken(token);
+    window.localStorage.setItem("token", token);
   }
 
   const loginSchema = yup.object().shape({
@@ -34,13 +35,16 @@ export function Login() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
+    mode: "onBlur",
     resolver: yupResolver(loginSchema),
   });
   function onSubmitApi(data) {
     console.log(data);
     async function loginApi() {
       try {
+        setLoading(true);
         await api
           .post("/sessions", data)
           .then((response) =>
@@ -49,16 +53,14 @@ export function Login() {
         setTimeout(() => {
           navigate("/dashboard");
         }, 3000);
-        setLoading(false);
+        reset();
+
         return notify("Deu");
       } catch (error) {
-        setLoading(false);
-        setTimeout(() => {
-          setLoading(false);
-        }, 3000);
+        reset();
         return notify("Login inválido", "error");
       } finally {
-        setLoading(true);
+        setLoading(false);
       }
     }
     loginApi();
@@ -105,7 +107,6 @@ export function Login() {
             color={"default"}
             text={"Entrar"}
             loading={loading}
-            disabled
           >
             Entrar
           </StyledButton>
