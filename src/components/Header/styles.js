@@ -5,6 +5,7 @@ export const StyledHeader = styled.header`
   color: var(--color-primary);
   display: flex;
   align-items: center;
+  padding: 1rem;
   a {
     background-color: var(--color-gray1);
     color: var(--color-gray0);
