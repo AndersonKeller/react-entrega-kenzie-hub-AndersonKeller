@@ -17,8 +17,8 @@ export function Login() {
   const [page, setPage] = useState(false);
   const navigate = useNavigate();
 
-  function notify(message) {
-    return toast.success(message);
+  function notify(message, type) {
+    type === "error" ? toast.error(message) : toast.success(message);
   }
 
   function defineUser(user, token) {
@@ -56,7 +56,7 @@ export function Login() {
         setTimeout(() => {
           setLoading(false);
         }, 3000);
-        return notify("Login inválido");
+        return notify("Login inválido", "error");
       } finally {
         setLoading(true);
       }
