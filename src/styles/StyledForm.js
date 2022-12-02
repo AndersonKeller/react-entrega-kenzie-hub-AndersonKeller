@@ -1,7 +1,7 @@
 import styled from "styled-components";
 export const StyledForm = styled.form`
   width: 100%;
-  max-width: 400px;
+
   color: var(--color-gray0);
   background-color: var(--color-gray3);
   border-radius: 0.25rem;

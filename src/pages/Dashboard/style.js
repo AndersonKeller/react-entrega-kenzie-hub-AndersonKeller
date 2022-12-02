@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const StyledMain = styled.main`
   display: flex;
@@ -52,6 +52,7 @@ export const StyledMain = styled.main`
     }
   }
 `;
+
 export const StyledName = styled.h2`
   color: var(--color-gray0);
   font-weight: 700;

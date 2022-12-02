@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "../../components/Button";
+
 import { toast } from "react-toastify";
 import { StyledButton } from "../../components/Button/styles";
 
@@ -18,7 +18,7 @@ export function Dashboard() {
   const [user, setUser] = useState(
     JSON.parse(window.localStorage.getItem("user"))
   );
-  console.log(user);
+
   function userUpdate() {
     const idUser = JSON.parse(window.localStorage.getItem("userId"));
     async function getUpdateUser() {
@@ -37,7 +37,7 @@ export function Dashboard() {
     window.localStorage.removeItem("user");
   }
   const techSchema = yup.object().shape({
-    title: yup.string().required("Campo obrigatório").min(5),
+    title: yup.string().required("Campo obrigatório"),
     status: yup.string().required("Escolha uma opção"),
   });
   const {
@@ -111,18 +111,22 @@ export function Dashboard() {
         </div>
         <div>
           <h3>Tecnologias</h3>
-          <StyledButton onClick={() => setShowForm(!showForm)}>+</StyledButton>
+          <StyledButton loading={false} onClick={() => setShowForm(!showForm)}>
+            +
+          </StyledButton>
         </div>
         {showForm && (
           <StyledForm noValidate onSubmit={handleSubmit(submitApi)}>
             <h2>Cadastrar tecnologia</h2>
             <input type="text" placeholder="Nome" {...register("title")} />
+            {errors.title?.message && <span>{errors.title.message}</span>}
             <select name="" id="status" {...register("status")}>
               <option value="">Selecionar status</option>
               <option value="Iniciante">Iniciante</option>
               <option value="Intermediário">Intermediário</option>
               <option value="Avançado">Avançado</option>
             </select>
+            {errors.status?.message && <span>{errors.status.message}</span>}
             <StyledButton loading={loading} type={"submit"} color={"default"}>
               Cadastrar tecnologia
             </StyledButton>

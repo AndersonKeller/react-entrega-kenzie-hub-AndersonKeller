@@ -69,8 +69,7 @@ export function Login() {
     }
     loginApi();
   }
-  // console.log(user);
-  // console.log(token);
+
   useEffect(() => {
     if (page) {
       navigate("/register");

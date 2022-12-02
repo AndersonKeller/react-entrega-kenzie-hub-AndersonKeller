@@ -47,4 +47,16 @@ export const GLobalStyles = createGlobalStyle`
         background-color: var(--color-gray2);
     }
 
+@media (min-width: 750px) {
+    body{
+        width: 600px;
+        transition: 1s ease;
+    }
+}
+@media (max-width: 749px) {
+    body{
+        transition: 1s ease;
+    }
+    
+}
 `;

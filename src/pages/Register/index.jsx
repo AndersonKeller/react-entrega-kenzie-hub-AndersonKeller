@@ -21,11 +21,17 @@ export function Register() {
     password: yup
       .string()
       .required("senha obrigatória")
-      .min(6, "deve conter no mínimo 6 caracteres"),
+      .min(8, "deve conter no mínimo 8 caracteres")
+      .matches(/(?=.*?[A-Z])/, "Deve conter ao menos uma letra maiúscula")
+      .matches(/(?=.*?[a-z])/, "Ao menos uma letra minúscula")
+      .matches(/(?=.*?[0-9])/, "Deve conter ao menos um número")
+      .matches(
+        /(?=.*?[#?!@$%^&*-])/,
+        "Deve conter ao menos um caracter especial"
+      ),
     passwordValidate: yup
       .string()
-      .required("senha obrigatória")
-      .min(6, "deve conter no mínimo 6 caracteres"),
+      .oneOf([yup.ref("password", "deve ser igual")]),
     bio: yup.string().required("campo obrigatório").min(10),
     contact: yup.string().required("Campo obrigatório"),
     course_module: yup.string().required("Escolha um módulo"),
@@ -79,7 +85,7 @@ export function Register() {
         <label htmlFor="">Email</label>
         <input placeholder="Digite aqui seu email" {...register("email")} />
         {errors.email?.message && <span>{errors.email.message}</span>}
-        <label htmlFor="">Senha</label>
+        <label htmlFor="">Criar senha</label>
         <input
           type="password"
           placeholder="Digite aqui sua senha"
@@ -93,7 +99,7 @@ export function Register() {
           {...register("passwordValidate")}
         />
         {errors.passwordValidate?.message && (
-          <span>{errors.passwordValidate.message}</span>
+          <span>{"A senha não corresponde"}</span>
         )}
         <label htmlFor="">Bio</label>
         <input placeholder="Fale sobre você" {...register("bio")} />

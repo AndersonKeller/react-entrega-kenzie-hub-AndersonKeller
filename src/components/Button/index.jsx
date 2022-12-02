@@ -2,7 +2,6 @@ import { StyledButton } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 export function Button({ text, color, type, loading }) {
-  console.log(loading);
   const [page, setPage] = useState(false);
 
   useEffect(() => {
