@@ -7,14 +7,7 @@ export const StyledMain = styled.main`
   background-color: var(--color-gray4);
   width: 100%;
   position: relative;
-  form {
-    position: fixed;
-    top: 50%;
-    left: 38%;
-    width: 400px;
-    z-index: 99;
-    height: 150px;
-  }
+
   div {
     display: flex;
     align-items: center;
