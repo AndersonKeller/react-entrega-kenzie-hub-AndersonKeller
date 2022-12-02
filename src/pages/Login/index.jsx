@@ -6,7 +6,7 @@ import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -14,7 +14,7 @@ export function Login() {
   const [user, setUser] = useState("");
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(false);
+
   const navigate = useNavigate();
 
   function notify(message, type) {
@@ -43,7 +43,6 @@ export function Login() {
     resolver: yupResolver(loginSchema),
   });
   function onSubmitApi(data) {
-    console.log(data);
     async function loginApi() {
       try {
         setLoading(true);
@@ -57,7 +56,7 @@ export function Login() {
         }, 3000);
         reset();
 
-        return notify("Deu");
+        return notify("Sucesso");
       } catch (error) {
         reset();
         return notify("Login inválido", "error");
@@ -69,12 +68,6 @@ export function Login() {
     }
     loginApi();
   }
-
-  useEffect(() => {
-    if (page) {
-      navigate("/register");
-    }
-  }, [page]);
 
   return (
     <>

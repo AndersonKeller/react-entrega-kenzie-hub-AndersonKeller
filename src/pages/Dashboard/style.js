@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const StyledMain = styled.main`
   display: flex;
@@ -47,9 +47,14 @@ export const StyledMain = styled.main`
     background-color: var(--color-gray4);
     padding: 0.75rem;
     border-radius: 4px;
+    cursor: pointer;
     &:hover {
       background-color: var(--color-gray2);
     }
+  }
+  li span {
+    color: var(--color-gray1);
+    font-size: var(--font-text);
   }
 `;
 

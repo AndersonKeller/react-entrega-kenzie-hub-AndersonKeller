@@ -8,6 +8,7 @@ export function Button({ text, color, type, loading }) {
     if (page) {
       navigate("/login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
   const navigate = useNavigate();
   return type === "submit" ? (

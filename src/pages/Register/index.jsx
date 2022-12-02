@@ -50,7 +50,6 @@ export function Register() {
   }
 
   function onSubmitApi(data) {
-    console.log(data);
     async function registerApi() {
       try {
         setLoading(true);
@@ -60,9 +59,8 @@ export function Register() {
         setTimeout(() => {
           navigate("/login");
         }, 3000);
-        return notify("Login realizado com sucesso");
+        return notify("Cadastro realizado com sucesso");
       } catch (error) {
-        console.log(error);
         reset({ password: "", passwordValidate: "" });
         return notify(error.response.data.message, "error");
       } finally {

@@ -68,10 +68,9 @@ export function Dashboard() {
     type === "error" ? toast.error(message) : toast.success(message);
   }
   function submitApi(data) {
-    console.log(data);
     async function createTech() {
       const token = window.localStorage.getItem("token");
-      console.log(token);
+
       try {
         setLoading(true);
         await api
@@ -136,7 +135,7 @@ export function Dashboard() {
           {techs.map((t) => (
             <li key={t.id}>
               <p>{t.title}</p>
-              <p>{t.status}</p>
+              <span>{t.status}</span>
             </li>
           ))}
         </ul>
