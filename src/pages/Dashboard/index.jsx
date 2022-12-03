@@ -10,10 +10,11 @@ import { StyledButton } from "../../components/Button/styles";
 
 import { StyledForm } from "../../styles/StyledForm";
 import { api } from "../../services/api";
+import { SelectLevel } from "../../components/SelectLevel";
 
 export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
-  
+
   const [techs, setTechs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(
@@ -120,13 +121,13 @@ export function Dashboard() {
             <h2>Cadastrar tecnologia</h2>
             <input type="text" placeholder="Nome" {...register("title")} />
             {errors.title?.message && <span>{errors.title.message}</span>}
-            <select name="" id="status" {...register("status")}>
-              <option value="">Selecionar status</option>
-              <option value="Iniciante">Iniciante</option>
-              <option value="Intermediário">Intermediário</option>
-              <option value="Avançado">Avançado</option>
-            </select>
-            {errors.status?.message && <span>{errors.status.message}</span>}
+            <SelectLevel
+              id={"status"}
+              register={register("status")}
+              name={""}
+              errorMsg={errors.status?.message && errors.status.message}
+            />
+
             <StyledButton loading={loading} type={"submit"} color={"default"}>
               Cadastrar tecnologia
             </StyledButton>

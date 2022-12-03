@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { SelectModule } from "../../components/SelectModule";
 
 export function Register() {
   const navigate = useNavigate();
@@ -106,15 +107,15 @@ export function Register() {
         <input placeholder="Opção de contato" {...register("contact")} />
         {errors.contact?.message && <span>{errors.contact.message}</span>}
         <label htmlFor="modulo">Selecionar módulo</label>
-        <select name="modulo" id="modulo" {...register("course_module")}>
-          <option value="">Escolha o módulo</option>
-          <option value="Primeiro módulo">Primeiro módulo</option>
-          <option value="Segundo módulo">Segundo módulo</option>
-          <option value="Terceiro módulo">Terceiro módulo</option>
-        </select>
-        {errors.course_module?.message && (
-          <span>{errors.course_module.message}</span>
-        )}
+
+        <SelectModule
+          errorMsg={
+            errors.course_module?.message && errors.course_module.message
+          }
+          name={"modulo"}
+          register={register("course_module")}
+        />
+
         <Button
           loading={loading}
           type="submit"
