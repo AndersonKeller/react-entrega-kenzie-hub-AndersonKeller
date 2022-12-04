@@ -13,32 +13,20 @@ export const StyledForm = styled.form`
   h2,
   p {
     text-align: center;
+    color: var(--color-gray1);
   }
   h2 {
     font-size: var(--font-title3);
   }
-  p {
-    color: var(--color-gray1);
-  }
+
   span {
     color: var(--color-negative);
     font-weight: 500;
   }
-  p,
   label {
     font-size: var(--font-text);
   }
-  input,
-  select {
-    background-color: var(--color-gray2);
-    border: none;
-    color: var(--color-gray0);
-    height: 40px;
-    padding-left: 1rem;
-    &::placeholder {
-      color: var(--color-gray1);
-    }
-  }
+  p,
   option,
   select {
     color: var(--color-gray1);

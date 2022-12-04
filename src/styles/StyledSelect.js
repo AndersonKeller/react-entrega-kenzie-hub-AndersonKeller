@@ -6,4 +6,7 @@ export const StyledSelect = styled.select`
   height: 40px;
   padding-left: 1rem;
   color: var(--color-gray1);
+  label {
+    font-size: var(--font-text);
+  }
 `;

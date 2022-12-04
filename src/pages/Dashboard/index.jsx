@@ -11,6 +11,7 @@ import { StyledButton } from "../../components/Button/styles";
 import { StyledForm } from "../../styles/StyledForm";
 import { api } from "../../services/api";
 import { SelectLevel } from "../../components/SelectLevel";
+import { Input } from "../../components/Input";
 
 export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
@@ -119,8 +120,16 @@ export function Dashboard() {
         {showForm && (
           <StyledForm noValidate onSubmit={handleSubmit(submitApi)}>
             <h2>Cadastrar tecnologia</h2>
-            <input type="text" placeholder="Nome" {...register("title")} />
-            {errors.title?.message && <span>{errors.title.message}</span>}
+            <Input
+              type={"text"}
+              label={""}
+              id={"name"}
+              placeholder={"Nome"}
+              register={register("title")}
+              errorMsg={errors.title?.message && errors.title.message}
+            />
+            {/* <input type="text" placeholder="Nome" {...register("title")} />
+            {errors.title?.message && <span>{errors.title.message}</span>} */}
             <SelectLevel
               id={"status"}
               register={register("status")}

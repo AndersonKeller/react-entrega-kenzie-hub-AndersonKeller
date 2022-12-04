@@ -1,9 +1,9 @@
 import { StyledSelect } from "../../styles/StyledSelect";
 
 export function SelectModule({ name, register, id, errorMsg }) {
-  console.log(register);
   return (
     <>
+      <label htmlFor="modulo">Selecionar módulo</label>
       <StyledSelect id={id} name={name} {...register}>
         <option value="">Escolha o módulo</option>
         <option value="Primeiro módulo (Introdução ao Frontend)">
