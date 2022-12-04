@@ -7,6 +7,7 @@ export const StyledMain = styled.main`
   background-color: var(--color-gray4);
   width: 100%;
   position: relative;
+
   div {
     display: flex;
     align-items: center;
