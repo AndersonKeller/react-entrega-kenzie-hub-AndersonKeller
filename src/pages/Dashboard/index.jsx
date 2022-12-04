@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { StyledButton } from "../../components/Button/styles";
 import { Button } from "../../components/Button";
-import { StyledForm } from "../../styles/StyledForm";
+import { Form } from "../../components/Form";
 import { api } from "../../services/api";
 import { SelectLevel } from "../../components/SelectLevel";
 import { Input } from "../../components/Input";
@@ -118,7 +118,7 @@ export function Dashboard() {
           </StyledButton>
         </div>
         {showForm && (
-          <StyledForm noValidate onSubmit={handleSubmit(submitApi)}>
+          <Form noValidate onSubmit={handleSubmit(submitApi)}>
             <h2>Cadastrar tecnologia</h2>
             <Input
               type={"text"}
@@ -142,7 +142,7 @@ export function Dashboard() {
               type={"submit"}
               color={"default"}
             ></Button>
-          </StyledForm>
+          </Form>
         )}
         <ul>
           {techs.map((t) => (

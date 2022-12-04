@@ -1,6 +1,7 @@
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
-import { StyledForm } from "../../styles/StyledForm";
+
+import { Form } from "../../components/Form";
 import { StyledButton } from "../../components/Button/styles";
 import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
@@ -73,7 +74,7 @@ export function Login() {
   return (
     <>
       <Header isButton={false}></Header>
-      <StyledForm onSubmit={handleSubmit(onSubmitApi)} noValidate>
+      <Form onSubmit={handleSubmit(onSubmitApi)} noValidate>
         <h2>Login</h2>
 
         <Input
@@ -114,7 +115,7 @@ export function Login() {
         <Link to={"/register"} color={"goRegister"}>
           Cadastre-se
         </Link>
-      </StyledForm>
+      </Form>
     </>
   );
 }

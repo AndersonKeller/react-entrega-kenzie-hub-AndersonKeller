@@ -1,6 +1,6 @@
 import { Header } from "../../components/Header";
 import { Button } from "../../components/Button";
-import { StyledForm } from "../../styles/StyledForm";
+import { Form } from "../../components/Form";
 import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -76,7 +76,7 @@ export function Register() {
   return (
     <>
       <Header isButton={true} text={"Voltar"}></Header>
-      <StyledForm onSubmit={handleSubmit(onSubmitApi)} noValidate>
+      <Form onSubmit={handleSubmit(onSubmitApi)} noValidate>
         <h2>Crie sua conta</h2>
         <p>Rapido e grátis, vamos nessa</p>
         <Input
@@ -128,8 +128,6 @@ export function Register() {
           errorMsg={errors.contact?.message && errors.contact.message}
         />
 
-        
-
         <SelectModule
           errorMsg={
             errors.course_module?.message && errors.course_module.message
@@ -144,7 +142,7 @@ export function Register() {
           color={"default"}
           text={"Cadastrar"}
         ></Button>
-      </StyledForm>
+      </Form>
     </>
   );
 }
