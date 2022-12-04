@@ -3,7 +3,7 @@ import { StyledSelect } from "../../styles/StyledSelect";
 export function SelectLevel({ name, register, id, errorMsg }) {
   return (
     <>
-      <StyledSelect id={id} name={name} {...register}>
+      <StyledSelect margin={"1rem"} id={id} name={name} {...register}>
         <option value="">Selecionar status</option>
         <option value="Iniciante">Iniciante</option>
         <option value="Intermediário">Intermediário</option>

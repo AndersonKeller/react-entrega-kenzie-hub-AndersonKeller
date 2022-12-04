@@ -4,7 +4,7 @@ export function SelectModule({ name, register, id, errorMsg }) {
   return (
     <>
       <label htmlFor="modulo">Selecionar módulo</label>
-      <StyledSelect id={id} name={name} {...register}>
+      <StyledSelect margin={"default"} id={id} name={name} {...register}>
         <option value="">Escolha o módulo</option>
         <option value="Primeiro módulo (Introdução ao Frontend)">
           Primeiro módulo

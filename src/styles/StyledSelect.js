@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 export const StyledSelect = styled.select`
   background-color: var(--color-gray2);
   border: none;
@@ -6,6 +6,11 @@ export const StyledSelect = styled.select`
   height: 40px;
   padding-left: 1rem;
   color: var(--color-gray1);
+  ${({ margin }) =>
+    margin !== "default" &&
+    css`
+      margin-top: ${margin};
+    `}
   label {
     font-size: var(--font-text);
   }

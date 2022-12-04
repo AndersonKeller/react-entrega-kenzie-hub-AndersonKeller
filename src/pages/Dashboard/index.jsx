@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { toast } from "react-toastify";
 import { StyledButton } from "../../components/Button/styles";
-
+import { Button } from "../../components/Button";
 import { StyledForm } from "../../styles/StyledForm";
 import { api } from "../../services/api";
 import { SelectLevel } from "../../components/SelectLevel";
@@ -128,8 +128,7 @@ export function Dashboard() {
               register={register("title")}
               errorMsg={errors.title?.message && errors.title.message}
             />
-            {/* <input type="text" placeholder="Nome" {...register("title")} />
-            {errors.title?.message && <span>{errors.title.message}</span>} */}
+
             <SelectLevel
               id={"status"}
               register={register("status")}
@@ -137,9 +136,12 @@ export function Dashboard() {
               errorMsg={errors.status?.message && errors.status.message}
             />
 
-            <StyledButton loading={loading} type={"submit"} color={"default"}>
-              Cadastrar tecnologia
-            </StyledButton>
+            <Button
+              text={"Cadastrar tecnologia"}
+              loading={loading}
+              type={"submit"}
+              color={"default"}
+            ></Button>
           </StyledForm>
         )}
         <ul>
