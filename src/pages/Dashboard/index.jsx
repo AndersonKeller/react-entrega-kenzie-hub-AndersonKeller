@@ -7,13 +7,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { toast } from "react-toastify";
 import { StyledButton } from "../../components/Button/styles";
-
-import { StyledForm } from "../../styles/StyledForm";
+import { Button } from "../../components/Button";
+import { Form } from "../../components/Form";
 import { api } from "../../services/api";
+import { SelectLevel } from "../../components/SelectLevel";
+import { Input } from "../../components/Input";
 
 export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
-  
+
   const [techs, setTechs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(
@@ -116,21 +118,31 @@ export function Dashboard() {
           </StyledButton>
         </div>
         {showForm && (
-          <StyledForm noValidate onSubmit={handleSubmit(submitApi)}>
+          <Form noValidate onSubmit={handleSubmit(submitApi)}>
             <h2>Cadastrar tecnologia</h2>
-            <input type="text" placeholder="Nome" {...register("title")} />
-            {errors.title?.message && <span>{errors.title.message}</span>}
-            <select name="" id="status" {...register("status")}>
-              <option value="">Selecionar status</option>
-              <option value="Iniciante">Iniciante</option>
-              <option value="Intermediário">Intermediário</option>
-              <option value="Avançado">Avançado</option>
-            </select>
-            {errors.status?.message && <span>{errors.status.message}</span>}
-            <StyledButton loading={loading} type={"submit"} color={"default"}>
-              Cadastrar tecnologia
-            </StyledButton>
-          </StyledForm>
+            <Input
+              type={"text"}
+              label={""}
+              id={"name"}
+              placeholder={"Nome"}
+              register={register("title")}
+              errorMsg={errors.title?.message && errors.title.message}
+            />
+
+            <SelectLevel
+              id={"status"}
+              register={register("status")}
+              name={""}
+              errorMsg={errors.status?.message && errors.status.message}
+            />
+
+            <Button
+              text={"Cadastrar tecnologia"}
+              loading={loading}
+              type={"submit"}
+              color={"default"}
+            ></Button>
+          </Form>
         )}
         <ul>
           {techs.map((t) => (

@@ -1,6 +1,7 @@
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
-import { StyledForm } from "../../styles/StyledForm";
+
+import { Form } from "../../components/Form";
 import { StyledButton } from "../../components/Button/styles";
 import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
@@ -9,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
+import { Input } from "../../components/Input";
 
 export function Login() {
   const [user, setUser] = useState("");
@@ -72,24 +74,26 @@ export function Login() {
   return (
     <>
       <Header isButton={false}></Header>
-      <StyledForm onSubmit={handleSubmit(onSubmitApi)} noValidate>
+      <Form onSubmit={handleSubmit(onSubmitApi)} noValidate>
         <h2>Login</h2>
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="Digite seu email"
-          {...register("email")}
+
+        <Input
+          label={"Email"}
+          id={"email"}
+          placeholder={"Digite seu email"}
+          type={"email"}
+          register={register("email")}
+          errorMsg={errors.email?.message && errors.email.message}
         />
-        {errors.email?.message && <span>{errors.email.message}</span>}
-        <label htmlFor="password">Senha</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Digite sua senha"
-          {...register("password")}
+        <Input
+          id={"password"}
+          type={"password"}
+          label={"Senha"}
+          placeholder={"Digite sua senha"}
+          register={register("password")}
+          errorMsg={errors.password?.message && errors.password.message}
         />
-        {errors.password?.message && <span>{errors.password.message}</span>}
+
         {!loading ? (
           <Button
             loading={loading}
@@ -111,7 +115,7 @@ export function Login() {
         <Link to={"/register"} color={"goRegister"}>
           Cadastre-se
         </Link>
-      </StyledForm>
+      </Form>
     </>
   );
 }

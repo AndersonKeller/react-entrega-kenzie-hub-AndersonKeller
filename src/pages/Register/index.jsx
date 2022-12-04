@@ -1,6 +1,6 @@
 import { Header } from "../../components/Header";
 import { Button } from "../../components/Button";
-import { StyledForm } from "../../styles/StyledForm";
+import { Form } from "../../components/Form";
 import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { SelectModule } from "../../components/SelectModule";
+import { Input } from "../../components/Input";
 
 export function Register() {
   const navigate = useNavigate();
@@ -74,54 +76,73 @@ export function Register() {
   return (
     <>
       <Header isButton={true} text={"Voltar"}></Header>
-      <StyledForm onSubmit={handleSubmit(onSubmitApi)} noValidate>
+      <Form onSubmit={handleSubmit(onSubmitApi)} noValidate>
         <h2>Crie sua conta</h2>
         <p>Rapido e grátis, vamos nessa</p>
-        <label htmlFor="">Nome</label>
-        <input placeholder="Digite aqui seu nome" {...register("name")} />
-        {errors.name?.message && <span>{errors.name.message}</span>}
-        <label htmlFor="">Email</label>
-        <input placeholder="Digite aqui seu email" {...register("email")} />
-        {errors.email?.message && <span>{errors.email.message}</span>}
-        <label htmlFor="">Criar senha</label>
-        <input
-          type="password"
-          placeholder="Digite aqui sua senha"
-          {...register("password")}
+        <Input
+          label={"Nome"}
+          id={"name"}
+          placeholder={"Digite aqui seu nome"}
+          type={"text"}
+          register={register("name")}
+          errorMsg={errors.name?.message && errors.name.message}
         />
-        {errors.password?.message && <span>{errors.password.message}</span>}
-        <label htmlFor="">Confirmar senha</label>
-        <input
-          type="password"
-          placeholder="Confirme sua senha"
-          {...register("passwordValidate")}
+        <Input
+          id={"email"}
+          label={"Email"}
+          placeholder={"Digite aqui seu email"}
+          type={"email"}
+          register={register("email")}
+          errorMsg={errors.email?.message && errors.email.message}
         />
-        {errors.passwordValidate?.message && (
-          <span>{"A senha não corresponde"}</span>
-        )}
-        <label htmlFor="">Bio</label>
-        <input placeholder="Fale sobre você" {...register("bio")} />
-        {errors.bio?.message && <span>{errors.bio.message}</span>}
-        <label htmlFor="">Contato</label>
-        <input placeholder="Opção de contato" {...register("contact")} />
-        {errors.contact?.message && <span>{errors.contact.message}</span>}
-        <label htmlFor="modulo">Selecionar módulo</label>
-        <select name="modulo" id="modulo" {...register("course_module")}>
-          <option value="">Escolha o módulo</option>
-          <option value="Primeiro módulo">Primeiro módulo</option>
-          <option value="Segundo módulo">Segundo módulo</option>
-          <option value="Terceiro módulo">Terceiro módulo</option>
-        </select>
-        {errors.course_module?.message && (
-          <span>{errors.course_module.message}</span>
-        )}
+        <Input
+          label={"Criar senha"}
+          id={"password"}
+          type={"password"}
+          placeholder={"Digite aqui sua senha"}
+          register={register("password")}
+          errorMsg={errors.password?.message && errors.password.message}
+        />
+        <Input
+          id={"passwordValidate"}
+          label={"Confirmar senha"}
+          type={"password"}
+          placeholder={"Confirme sua senha"}
+          register={register("passwordValidate")}
+          errorMsg={
+            errors.passwordValidate?.message && errors.passwordValidate.message
+          }
+        />
+        <Input
+          id={"bio"}
+          label={"Bio"}
+          placeholder={"Fale sobre você"}
+          register={register("bio")}
+          errorMsg={errors.bio?.message && errors.bio.message}
+        />
+        <Input
+          id={"contact"}
+          label={"Contato"}
+          placeholder={"Opção de contato"}
+          register={register("contact")}
+          errorMsg={errors.contact?.message && errors.contact.message}
+        />
+
+        <SelectModule
+          errorMsg={
+            errors.course_module?.message && errors.course_module.message
+          }
+          name={"modulo"}
+          register={register("course_module")}
+        />
+
         <Button
           loading={loading}
           type="submit"
           color={"default"}
           text={"Cadastrar"}
         ></Button>
-      </StyledForm>
+      </Form>
     </>
   );
 }

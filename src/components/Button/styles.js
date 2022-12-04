@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const StyledButton = styled.button`
+  margin-top: 1rem;
   ${({ color }) =>
     color === "default"
       ? css`
