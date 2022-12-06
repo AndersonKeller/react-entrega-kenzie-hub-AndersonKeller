@@ -1,18 +1,52 @@
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
-
+import { api } from "../../services/api";
 import { Form } from "../../components/Form";
 import { StyledButton } from "../../components/Button/styles";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
 export function Login() {
-  const { register, handleSubmit, errors, loading, onSubmitApi } =
-    useContext(UserContext);
+  const navigate = useNavigate();
+  const {
+    notify,
+    register,
+    defineUser,
+    handleSubmit,
+    errors,
+    loading,
+    reset,
+    setLoading,
+  } = useContext(UserContext);
+  function onSubmitApi(data) {
+    async function loginApi() {
+      try {
+        setLoading(true);
+        await api
+          .post("/sessions", data)
+          .then((response) =>
+            defineUser(response.data.user, response.data.token)
+          );
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 3000);
+        reset();
 
+        return notify("Sucesso");
+      } catch (error) {
+        reset();
+        return notify("Login inválido", "error");
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
+      }
+    }
+    loginApi();
+  }
   return (
     <>
       <Header isButton={false}></Header>

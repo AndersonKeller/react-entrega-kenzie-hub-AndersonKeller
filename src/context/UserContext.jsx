@@ -40,36 +40,19 @@ export function UserProvider({ children }) {
     mode: "onBlur",
     resolver: yupResolver(loginSchema),
   });
-  function onSubmitApi(data) {
-    async function loginApi() {
-      try {
-        setLoading(true);
-        await api
-          .post("/sessions", data)
-          .then((response) =>
-            defineUser(response.data.user, response.data.token)
-          );
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 3000);
-        reset();
-
-        return notify("Sucesso");
-      } catch (error) {
-        reset();
-        return notify("Login inválido", "error");
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 3000);
-      }
-    }
-    loginApi();
-  }
 
   return (
     <UserContext.Provider
-      value={{ register, errors: errors, loading, handleSubmit, onSubmitApi }}
+      value={{
+        register,
+        defineUser,
+        notify,
+        errors: errors,
+        loading,
+        handleSubmit,
+        setLoading,
+        reset,
+      }}
     >
       {children}
     </UserContext.Provider>
