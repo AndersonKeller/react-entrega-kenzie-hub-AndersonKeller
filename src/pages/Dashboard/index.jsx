@@ -32,22 +32,7 @@ export function Dashboard() {
     techs,
   } = useContext(TechContext);
   const { notify } = useContext(MainContext);
-  // const [user, setUser] = useState(
-  //   JSON.parse(window.localStorage.getItem("user"))
-  // );
 
-  // function userUpdate() {
-  //   const idUser = JSON.parse(window.localStorage.getItem("userId"));
-  //   async function getUpdateUser() {
-  //     await api
-  //       .get(`/users/${idUser}`)
-  //       .then((response) =>
-  //         window.localStorage.setItem("user", JSON.stringify(response.data))
-  //       );
-  //     setUser(JSON.parse(window.localStorage.getItem("user")));
-  //   }
-  //   getUpdateUser();
-  // }
   function deleteToken() {
     window.localStorage.removeItem("token");
     window.localStorage.removeItem("userId");

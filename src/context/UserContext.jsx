@@ -23,9 +23,9 @@ export function UserProvider({ children }) {
       value={{
         defineUser,
         notify,
-
+        user,
         loading,
-
+        setUser,
         setLoading,
       }}
     >
