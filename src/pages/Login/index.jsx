@@ -8,19 +8,34 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 export function Login() {
   const navigate = useNavigate();
   const {
     notify,
-    register,
+
     defineUser,
-    handleSubmit,
-    errors,
+
     loading,
-    reset,
+
     setLoading,
   } = useContext(UserContext);
+  const loginSchema = yup.object().shape({
+    email: yup.string().required("email obrigatório").email("formato inválido"),
+    password: yup.string().required("senha obrigatória"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    mode: "onBlur",
+    resolver: yupResolver(loginSchema),
+  });
   function onSubmitApi(data) {
     async function loginApi() {
       try {
