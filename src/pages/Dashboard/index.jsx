@@ -12,12 +12,13 @@ import { Form } from "../../components/Form";
 import { api } from "../../services/api";
 import { SelectLevel } from "../../components/SelectLevel";
 import { Input } from "../../components/Input";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
-
+  const navigate = useNavigate();
   const [techs, setTechs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(
     JSON.parse(window.localStorage.getItem("user"))
   );
@@ -54,18 +55,17 @@ export function Dashboard() {
   });
   function getUserName() {
     const user = JSON.parse(window.localStorage.getItem("user"));
-
-    return user.name;
+    return user && user.name;
   }
   function getUserModule() {
     const user = JSON.parse(window.localStorage.getItem("user"));
 
-    return user.course_module;
+    return user && user.course_module;
   }
   function getUserTechs() {
     const user = JSON.parse(window.localStorage.getItem("user"));
 
-    return setTechs(user.techs);
+    return user && setTechs(user.techs);
   }
   function notify(message, type) {
     type === "error" ? toast.error(message) : toast.success(message);
@@ -102,8 +102,26 @@ export function Dashboard() {
   useEffect(() => {
     getUserTechs();
   }, [user]);
+  async function showProfile() {
+    const token = window.localStorage.getItem("token");
+    try {
+      const resp = await api.get("/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      navigate("/login");
+    } finally {
+      setLoading(false);
+    }
+  }
 
-  return (
+  useEffect(() => {
+    showProfile();
+  }, []);
+  return loading ? null : (
     <>
       <Header isButton={true} onclick={deleteToken} text={"Sair"}></Header>
       <StyledMain>
