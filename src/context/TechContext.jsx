@@ -1,20 +1,29 @@
 import { useEffect } from "react";
+import { useContext } from "react";
 import { createContext, useState } from "react";
 import { api } from "../services/api";
+import { UserContext } from "./UserContext";
 
 export const TechContext = createContext({});
 
 export function TechProvider({ children }) {
-  const [user, setUser] = useState({});
+  const { user, setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
   function getUser() {
     async function getApiUser() {
-      const res = await api.get("/profile", {
-        headers: {
-          authorization: `Bearer ${window.localStorage.getItem("token")}`,
-        },
-      });
-      setUser(res.data);
-      return res.data;
+      try {
+        const res = await api.get("/profile", {
+          headers: {
+            authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          },
+        });
+        setUser(res.data);
+        return res.data;
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     }
 
     getApiUser();
@@ -51,7 +60,7 @@ export function TechProvider({ children }) {
     }
     getUpdateUser();
   }
-  return (
+  return loading ? null : (
     <TechContext.Provider
       value={{
         getUserModule,
