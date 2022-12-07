@@ -20,7 +20,7 @@ import { MainContext } from "../../context/MainProvider";
 export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
   const navigate = useNavigate();
-  // const [techs, setTechs] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const {
     getUserModule,
@@ -36,7 +36,6 @@ export function Dashboard() {
   function deleteToken() {
     window.localStorage.removeItem("token");
     window.localStorage.removeItem("userId");
-    window.localStorage.removeItem("user");
   }
   const techSchema = yup.object().shape({
     title: yup.string().required("Campo obrigatório"),
@@ -51,23 +50,13 @@ export function Dashboard() {
     mode: "onBlur",
     resolver: yupResolver(techSchema),
   });
-  // function getUserName() {
-  //   const user = JSON.parse(window.localStorage.getItem("user"));
-  //   return user && user.name;
-  // }
-  // function getUserModule() {
-  //   const user = JSON.parse(window.localStorage.getItem("user"));
 
-  //   return user && user.course_module;
-  // }
   // function getUserTechs() {
   //   const user = JSON.parse(window.localStorage.getItem("user"));
 
   //   return user && setTechs(user.techs);
   // }
-  // function notify(message, type) {
-  //   type === "error" ? toast.error(message) : toast.success(message);
-  // }
+
   function submitApi(data) {
     async function createTech() {
       const token = window.localStorage.getItem("token");
@@ -114,7 +103,7 @@ export function Dashboard() {
       setLoading(false);
     }
   }
-
+  console.log(techs);
   useEffect(() => {
     showProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
