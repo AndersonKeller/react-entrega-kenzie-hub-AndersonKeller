@@ -8,7 +8,8 @@ import { GLobalStyles } from "./styles/global";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import { UserProvider } from "./context/UserContext";
+
+import { MainProvider } from "./context/MainProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -27,9 +28,9 @@ root.render(
         pauseOnHover={false}
         theme="dark"
       />
-      <UserProvider>
+      <MainProvider>
         <App />
-      </UserProvider>
+      </MainProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

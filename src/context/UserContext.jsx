@@ -1,6 +1,7 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useContext } from "react";
+import { MainContext } from "./MainProvider";
 
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 
 export const UserContext = createContext({});
 
@@ -8,11 +9,7 @@ export function UserProvider({ children }) {
   const [user, setUser] = useState("");
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
-
-  function notify(message, type) {
-    type === "error" ? toast.error(message) : toast.success(message);
-  }
-
+  const { notify } = useContext(MainContext);
   function defineUser(user, token) {
     setUser(user);
     setToken(token);
