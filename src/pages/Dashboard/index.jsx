@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Header } from "../../components/Header";
 import { StyledMain, StyledModule, StyledName } from "./style";
 import { useState, useEffect } from "react";
@@ -5,35 +6,48 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { toast } from "react-toastify";
 import { StyledButton } from "../../components/Button/styles";
 import { Button } from "../../components/Button";
 import { Form } from "../../components/Form";
 import { api } from "../../services/api";
 import { SelectLevel } from "../../components/SelectLevel";
 import { Input } from "../../components/Input";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { TechContext } from "../../context/TechContext";
+import { MainContext } from "../../context/MainProvider";
 
 export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
+  const navigate = useNavigate();
+  // const [techs, setTechs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const {
+    getUserModule,
+    getUserName,
+    getUserTechs,
+    user,
 
-  const [techs, setTechs] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(
-    JSON.parse(window.localStorage.getItem("user"))
-  );
+    userUpdate,
+    techs,
+  } = useContext(TechContext);
+  const { notify } = useContext(MainContext);
+  // const [user, setUser] = useState(
+  //   JSON.parse(window.localStorage.getItem("user"))
+  // );
 
-  function userUpdate() {
-    const idUser = JSON.parse(window.localStorage.getItem("userId"));
-    async function getUpdateUser() {
-      await api
-        .get(`/users/${idUser}`)
-        .then((response) =>
-          window.localStorage.setItem("user", JSON.stringify(response.data))
-        );
-      setUser(JSON.parse(window.localStorage.getItem("user")));
-    }
-    getUpdateUser();
-  }
+  // function userUpdate() {
+  //   const idUser = JSON.parse(window.localStorage.getItem("userId"));
+  //   async function getUpdateUser() {
+  //     await api
+  //       .get(`/users/${idUser}`)
+  //       .then((response) =>
+  //         window.localStorage.setItem("user", JSON.stringify(response.data))
+  //       );
+  //     setUser(JSON.parse(window.localStorage.getItem("user")));
+  //   }
+  //   getUpdateUser();
+  // }
   function deleteToken() {
     window.localStorage.removeItem("token");
     window.localStorage.removeItem("userId");
@@ -52,30 +66,28 @@ export function Dashboard() {
     mode: "onBlur",
     resolver: yupResolver(techSchema),
   });
-  function getUserName() {
-    const user = JSON.parse(window.localStorage.getItem("user"));
+  // function getUserName() {
+  //   const user = JSON.parse(window.localStorage.getItem("user"));
+  //   return user && user.name;
+  // }
+  // function getUserModule() {
+  //   const user = JSON.parse(window.localStorage.getItem("user"));
 
-    return user.name;
-  }
-  function getUserModule() {
-    const user = JSON.parse(window.localStorage.getItem("user"));
+  //   return user && user.course_module;
+  // }
+  // function getUserTechs() {
+  //   const user = JSON.parse(window.localStorage.getItem("user"));
 
-    return user.course_module;
-  }
-  function getUserTechs() {
-    const user = JSON.parse(window.localStorage.getItem("user"));
-
-    return setTechs(user.techs);
-  }
-  function notify(message, type) {
-    type === "error" ? toast.error(message) : toast.success(message);
-  }
+  //   return user && setTechs(user.techs);
+  // }
+  // function notify(message, type) {
+  //   type === "error" ? toast.error(message) : toast.success(message);
+  // }
   function submitApi(data) {
     async function createTech() {
       const token = window.localStorage.getItem("token");
 
       try {
-        setLoading(true);
         await api
           .post("/users/techs", data, {
             headers: {
@@ -102,8 +114,27 @@ export function Dashboard() {
   useEffect(() => {
     getUserTechs();
   }, [user]);
+  async function showProfile() {
+    const token = window.localStorage.getItem("token");
+    try {
+      await api.get("/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      navigate("/login");
+    } finally {
+      setLoading(false);
+    }
+  }
 
-  return (
+  useEffect(() => {
+    showProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return loading ? null : (
     <>
       <Header isButton={true} onclick={deleteToken} text={"Sair"}></Header>
       <StyledMain>
