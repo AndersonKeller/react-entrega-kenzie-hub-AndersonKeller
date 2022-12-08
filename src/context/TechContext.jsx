@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { createContext, useState } from "react";
 import { api } from "../services/api";
+import { MainContext } from "./MainProvider";
 import { UserContext } from "./UserContext";
 
 export const TechContext = createContext({});
 
 export function TechProvider({ children }) {
   const { user, setUser } = useContext(UserContext);
+  const { notify } = useContext(MainContext);
   const [loading, setLoading] = useState(true);
   function getUser() {
     async function getApiUser() {
@@ -47,19 +49,24 @@ export function TechProvider({ children }) {
 
     return userModule;
   }
-
-  function userUpdate() {
-    const idUser = JSON.parse(window.localStorage.getItem("userId"));
-    async function getUpdateUser() {
-      await api
-        .get(`/users/${idUser}`)
-        .then((response) =>
-          window.localStorage.setItem("user", JSON.stringify(response.data))
-        );
-      setUser(JSON.parse(window.localStorage.getItem("user")));
+  function deleteTech(id) {
+    const token = window.localStorage.getItem("token");
+    async function deleteApi() {
+      try {
+        await api.delete(`/users/techs/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        notify("Excluido");
+        getUser();
+      } catch (error) {
+        console.error(error);
+      }
     }
-    getUpdateUser();
+    deleteApi();
   }
+
   return loading ? null : (
     <TechContext.Provider
       value={{
@@ -68,8 +75,9 @@ export function TechProvider({ children }) {
         getUserTechs,
         user,
         setUser,
-        userUpdate,
+        getUser,
         techs,
+        deleteTech,
         setTechs,
       }}
     >

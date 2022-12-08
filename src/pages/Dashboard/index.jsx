@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { TechContext } from "../../context/TechContext";
 import { MainContext } from "../../context/MainProvider";
+import { UserContext } from "../../context/UserContext";
 
 export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
@@ -27,11 +28,11 @@ export function Dashboard() {
     getUserModule,
     getUserName,
     getUserTechs,
-    user,
-
-    userUpdate,
+    deleteTech,
+    getUser,
     techs,
   } = useContext(TechContext);
+  const { user, token } = useContext(UserContext);
   const { notify } = useContext(MainContext);
 
   function deleteToken() {
@@ -63,7 +64,7 @@ export function Dashboard() {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then(() => userUpdate());
+          .then(() => getUser());
         reset();
         notify("Criado com sucesso");
 
@@ -98,28 +99,11 @@ export function Dashboard() {
       setLoading(false);
     }
   }
-  function deleteTech(id) {
-    const token = window.localStorage.getItem("token");
-    async function deleteApi() {
-      try {
-        await api.delete(`/users/techs/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        notify("Excluido");
-        userUpdate();
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    deleteApi();
-  }
 
   useEffect(() => {
     showProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token]);
   return loading ? null : (
     <>
       <Header isButton={true} onclick={deleteToken} text={"Sair"}></Header>
@@ -163,7 +147,7 @@ export function Dashboard() {
         )}
         <ul>
           {techs.map((t) => (
-            <div className="divRelative">
+            <div key={t.id} className="divRelative">
               <li key={t.id} onClick={() => setShowBtns(!showBtns)}>
                 <div>
                   <p>{t.title}</p>
