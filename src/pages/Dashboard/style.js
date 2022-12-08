@@ -68,9 +68,9 @@ export const StyledMain = styled.main`
   .divBtns {
     justify-content: flex-end;
     gap: 2rem;
-    position: absolute;
+    position: fixed;
     top: 50%;
-    right: 10%;
+    right: 34%;
   }
   .divRelative {
     position: relative;

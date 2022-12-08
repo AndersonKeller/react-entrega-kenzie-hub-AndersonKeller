@@ -35,6 +35,22 @@ export function TechProvider({ children }) {
     getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  function editTech(id) {
+    async function editApi() {
+      const token = window.localStorage.getItem("token");
+      try {
+        await api.put(`/users/techs/${id}`, {
+          headers: {
+            application: `Bearer ${token}`,
+          },
+        });
+        notify("Editado");
+      } catch (error) {
+        notify("algo deu errado", "error");
+      }
+    }
+    editApi();
+  }
   function getUserTechs() {
     const userTechs = user?.techs;
     userTechs && setTechs([...userTechs]);
@@ -81,6 +97,7 @@ export function TechProvider({ children }) {
         techs,
         deleteTech,
         setTechs,
+        editTech,
       }}
     >
       {children}
