@@ -33,6 +33,7 @@ export function TechProvider({ children }) {
 
   useEffect(() => {
     getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   function getUserTechs() {
     const userTechs = user?.techs;
@@ -62,6 +63,7 @@ export function TechProvider({ children }) {
         getUser();
       } catch (error) {
         console.error(error);
+        notify("Algo deu errado, não excluido", "error");
       }
     }
     deleteApi();
