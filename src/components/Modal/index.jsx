@@ -2,8 +2,7 @@ import { useContext } from "react";
 import { TechContext } from "../../context/TechContext";
 
 export function Modal({ id }) {
-  const { editTech, user, getUSer, deleteTech } = useContext(TechContext);
-  console.log(id);
+  const { deleteTech } = useContext(TechContext);
 
   return (
     <div className="divBtns">

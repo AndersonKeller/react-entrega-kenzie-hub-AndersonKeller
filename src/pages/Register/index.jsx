@@ -53,9 +53,7 @@ export function Register() {
     async function registerApi() {
       try {
         setLoading(true);
-        await api.post("/users", data).then((response) => {
-          console.log(response);
-        });
+        await api.post("/users", data);
         setTimeout(() => {
           navigate("/login");
         }, 3000);

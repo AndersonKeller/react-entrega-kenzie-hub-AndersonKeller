@@ -18,10 +18,9 @@ export function Login() {
     notify,
     token,
     defineUser,
-    setToken,
+
     loading,
-    user,
-    setUser,
+
     setLoading,
   } = useContext(UserContext);
   const loginSchema = yup.object().shape({
@@ -41,12 +40,12 @@ export function Login() {
     async function loginApi() {
       try {
         setLoading(true);
-        const resp = await api
+        await api
           .post("/sessions", data)
           .then((response) =>
             defineUser(response.data.user, response.data.token)
           );
-        console.log(await token);
+
         setTimeout(() => {
           navigate("/dashboard");
         }, 3000);
