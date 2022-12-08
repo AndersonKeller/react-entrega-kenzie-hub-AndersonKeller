@@ -65,12 +65,8 @@ export const StyledMain = styled.main`
     justify-content: space-between;
     width: 100%;
   }
-  .divBtns {
-    justify-content: flex-end;
-    gap: 2rem;
-    position: fixed;
-    top: 50%;
-    right: 34%;
+  li button {
+    color: var(--color-gray0);
   }
   .divRelative {
     position: relative;

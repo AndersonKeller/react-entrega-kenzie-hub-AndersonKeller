@@ -153,18 +153,16 @@ export function Dashboard() {
         )}
         <ul>
           {techs.map((t) => (
-            <div
-              key={t.id}
-              className="divRelative"
-              onClick={(e) => modalShow(e.target.id)}
-            >
+            <div key={t.id} className="divRelative">
               <li id={t.id} key={t.id}>
                 <div id={t.id}>
                   <p>{t.title}</p>
                   <span>{t.status}</span>
+                  <button id={t.id} onClick={(e) => deleteTech(e.target.id)}>
+                    deletar
+                  </button>
                 </div>
               </li>
-              {showBtns && <Modal id={t.id} />}
             </div>
           ))}
         </ul>
