@@ -1,9 +1,12 @@
 import { RouterMain as Route } from "./routes";
+import { ProtectedRoute as Protected } from "./routes/ProtectedRoute";
 
 function App() {
   return (
     <div className="App">
-      <Route />
+      <Route>
+        <Protected />
+      </Route>
     </div>
   );
 }

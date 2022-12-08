@@ -15,7 +15,6 @@ export function UserProvider({ children }) {
     setToken(token);
     window.localStorage.setItem("token", token);
     window.localStorage.setItem("userId", JSON.stringify(user.id));
-    window.localStorage.setItem("user", JSON.stringify(user));
   }
 
   return (
@@ -23,9 +22,9 @@ export function UserProvider({ children }) {
       value={{
         defineUser,
         notify,
-
+        user,
         loading,
-
+        setUser,
         setLoading,
       }}
     >
