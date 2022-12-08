@@ -22,6 +22,7 @@ export function Dashboard() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
+  const [showBtns, setShowBtns] = useState(false);
   const {
     getUserModule,
     getUserName,
@@ -50,12 +51,6 @@ export function Dashboard() {
     mode: "onBlur",
     resolver: yupResolver(techSchema),
   });
-
-  // function getUserTechs() {
-  //   const user = JSON.parse(window.localStorage.getItem("user"));
-
-  //   return user && setTechs(user.techs);
-  // }
 
   function submitApi(data) {
     async function createTech() {
@@ -103,7 +98,24 @@ export function Dashboard() {
       setLoading(false);
     }
   }
-  console.log(techs);
+  function deleteTech(id) {
+    const token = window.localStorage.getItem("token");
+    async function deleteApi() {
+      try {
+        await api.delete(`/users/techs/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        notify("Excluido");
+        userUpdate();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    deleteApi();
+  }
+
   useEffect(() => {
     showProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -151,10 +163,24 @@ export function Dashboard() {
         )}
         <ul>
           {techs.map((t) => (
-            <li key={t.id}>
-              <p>{t.title}</p>
-              <span>{t.status}</span>
-            </li>
+            <div className="divRelative">
+              <li key={t.id} onClick={() => setShowBtns(!showBtns)}>
+                <div>
+                  <p>{t.title}</p>
+                  <span>{t.status}</span>
+                </div>
+              </li>
+              {showBtns && (
+                <div id={t.id} className="divBtns">
+                  <button id={t.id} onClick={(e) => console.log(e.target.id)}>
+                    edit
+                  </button>
+                  <button id={t.id} onClick={(e) => deleteTech(e.target.id)}>
+                    delete
+                  </button>
+                </div>
+              )}
+            </div>
           ))}
         </ul>
       </StyledMain>

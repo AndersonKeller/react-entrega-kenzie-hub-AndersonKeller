@@ -40,24 +40,44 @@ export const StyledMain = styled.main`
     gap: 1rem;
     background-color: var(--color-gray3);
     padding: 0.5rem;
+    position: relative;
   }
   ul li {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background-color: var(--color-gray4);
     padding: 0.75rem;
     border-radius: 4px;
     cursor: pointer;
+    position: relative;
 
     &:hover {
       background-color: var(--color-gray2);
     }
   }
-  li span {
+  li div span {
     color: var(--color-gray1);
     font-size: var(--font-text);
+  }
+  li div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .divBtns {
+    justify-content: flex-end;
+    gap: 2rem;
+    position: absolute;
+    right: 0;
+  }
+  .divRelative {
+    position: relative;
+  }
+  .divBtns button {
+    color: var(--color-gray0);
   }
 `;
 
