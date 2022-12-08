@@ -23,6 +23,7 @@ export function UserProvider({ children }) {
         defineUser,
         notify,
         user,
+        token,
         loading,
         setUser,
         setLoading,

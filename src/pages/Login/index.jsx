@@ -16,9 +16,9 @@ export function Login() {
   const navigate = useNavigate();
   const {
     notify,
-
+    token,
     defineUser,
-
+    setToken,
     loading,
     user,
     setUser,
@@ -46,7 +46,7 @@ export function Login() {
           .then((response) =>
             defineUser(response.data.user, response.data.token)
           );
-
+        console.log(await token);
         setTimeout(() => {
           navigate("/dashboard");
         }, 3000);
