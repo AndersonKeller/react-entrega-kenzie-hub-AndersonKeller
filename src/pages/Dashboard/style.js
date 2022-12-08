@@ -40,7 +40,6 @@ export const StyledMain = styled.main`
     gap: 1rem;
     background-color: var(--color-gray3);
     padding: 0.5rem;
-    position: relative;
   }
   ul li {
     width: 100%;
@@ -52,7 +51,6 @@ export const StyledMain = styled.main`
     padding: 0.75rem;
     border-radius: 4px;
     cursor: pointer;
-    position: relative;
 
     &:hover {
       background-color: var(--color-gray2);
@@ -71,7 +69,8 @@ export const StyledMain = styled.main`
     justify-content: flex-end;
     gap: 2rem;
     position: absolute;
-    right: 0;
+    top: 50%;
+    right: 10%;
   }
   .divRelative {
     position: relative;

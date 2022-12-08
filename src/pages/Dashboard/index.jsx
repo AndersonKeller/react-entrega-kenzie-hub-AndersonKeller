@@ -154,18 +154,14 @@ export function Dashboard() {
                   <span>{t.status}</span>
                 </div>
               </li>
-              {showBtns && (
-                <div id={t.id} className="divBtns">
-                  <button id={t.id} onClick={(e) => console.log(e.target.id)}>
-                    edit
-                  </button>
-                  <button id={t.id} onClick={(e) => deleteTech(e.target.id)}>
-                    delete
-                  </button>
-                </div>
-              )}
             </div>
           ))}
+          {showBtns && (
+            <div className="divBtns">
+              <button onClick={(e) => console.log(e.target.id)}>edit</button>
+              <button onClick={(e) => deleteTech(e.target.id)}>delete</button>
+            </div>
+          )}
         </ul>
       </StyledMain>
     </>
