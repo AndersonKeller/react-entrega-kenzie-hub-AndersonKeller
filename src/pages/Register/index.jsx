@@ -4,16 +4,17 @@ import { Form } from "../../components/Form";
 import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { toast } from "react-toastify";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext } from "react";
 import { SelectModule } from "../../components/SelectModule";
 import { Input } from "../../components/Input";
+import { UserContext } from "../../context/UserContext";
 
 export function Register() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading, notify } = useContext(UserContext);
   const registerSchema = yup.object().shape({
     name: yup
       .string()
@@ -47,9 +48,6 @@ export function Register() {
     mode: "onBlur",
     resolver: yupResolver(registerSchema),
   });
-  function notify(message, type) {
-    type === "error" ? toast.error(message) : toast.success(message);
-  }
 
   function onSubmitApi(data) {
     async function registerApi() {
