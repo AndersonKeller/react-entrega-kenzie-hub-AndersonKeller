@@ -17,6 +17,7 @@ import { useContext } from "react";
 import { TechContext } from "../../context/TechContext";
 import { MainContext } from "../../context/MainProvider";
 import { UserContext } from "../../context/UserContext";
+import { Modal } from "../../components/Modal";
 
 export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
@@ -31,6 +32,7 @@ export function Dashboard() {
     deleteTech,
     getUser,
     techs,
+    editTech,
   } = useContext(TechContext);
   const { user, token } = useContext(UserContext);
   const { notify } = useContext(MainContext);
@@ -99,7 +101,11 @@ export function Dashboard() {
       setLoading(false);
     }
   }
-
+  function modalShow(id) {
+    console.log(id);
+    id && setShowBtns(true);
+    return id;
+  }
   useEffect(() => {
     showProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -148,20 +154,17 @@ export function Dashboard() {
         <ul>
           {techs.map((t) => (
             <div key={t.id} className="divRelative">
-              <li key={t.id} onClick={() => setShowBtns(!showBtns)}>
-                <div>
+              <li id={t.id} key={t.id}>
+                <div id={t.id}>
                   <p>{t.title}</p>
                   <span>{t.status}</span>
+                  <button id={t.id} onClick={(e) => deleteTech(e.target.id)}>
+                    deletar
+                  </button>
                 </div>
               </li>
             </div>
           ))}
-          {showBtns && (
-            <div className="divBtns">
-              <button onClick={(e) => console.log(e.target.id)}>edit</button>
-              <button onClick={(e) => deleteTech(e.target.id)}>delete</button>
-            </div>
-          )}
         </ul>
       </StyledMain>
     </>
