@@ -44,6 +44,7 @@ export const StyledMain = styled.main`
   ul li {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background-color: var(--color-gray4);
@@ -55,9 +56,23 @@ export const StyledMain = styled.main`
       background-color: var(--color-gray2);
     }
   }
-  li span {
+  li div span {
     color: var(--color-gray1);
     font-size: var(--font-text);
+  }
+  li div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  li button {
+    color: var(--color-gray0);
+  }
+  .divRelative {
+    position: relative;
+  }
+  .divBtns button {
+    color: var(--color-gray0);
   }
 `;
 

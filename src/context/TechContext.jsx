@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { createContext, useState } from "react";
 import { api } from "../services/api";
+import { MainContext } from "./MainProvider";
 import { UserContext } from "./UserContext";
 
 export const TechContext = createContext({});
 
 export function TechProvider({ children }) {
   const { user, setUser } = useContext(UserContext);
+  const { notify } = useContext(MainContext);
   const [loading, setLoading] = useState(true);
   function getUser() {
     async function getApiUser() {
@@ -31,7 +33,24 @@ export function TechProvider({ children }) {
 
   useEffect(() => {
     getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  function editTech(id) {
+    async function editApi() {
+      const token = window.localStorage.getItem("token");
+      try {
+        await api.put(`/users/techs/${id}`, {
+          headers: {
+            application: `Bearer ${token}`,
+          },
+        });
+        notify("Editado");
+      } catch (error) {
+        notify("algo deu errado", "error");
+      }
+    }
+    editApi();
+  }
   function getUserTechs() {
     const userTechs = user?.techs;
     userTechs && setTechs([...userTechs]);
@@ -47,19 +66,25 @@ export function TechProvider({ children }) {
 
     return userModule;
   }
-
-  function userUpdate() {
-    const idUser = JSON.parse(window.localStorage.getItem("userId"));
-    async function getUpdateUser() {
-      await api
-        .get(`/users/${idUser}`)
-        .then((response) =>
-          window.localStorage.setItem("user", JSON.stringify(response.data))
-        );
-      setUser(JSON.parse(window.localStorage.getItem("user")));
+  function deleteTech(id) {
+    const token = window.localStorage.getItem("token");
+    async function deleteApi() {
+      try {
+        await api.delete(`/users/techs/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        notify("Excluido");
+        getUser();
+      } catch (error) {
+        console.error(error);
+        notify("Algo deu errado, não excluido", "error");
+      }
     }
-    getUpdateUser();
+    deleteApi();
   }
+
   return loading ? null : (
     <TechContext.Provider
       value={{
@@ -68,9 +93,11 @@ export function TechProvider({ children }) {
         getUserTechs,
         user,
         setUser,
-        userUpdate,
+        getUser,
         techs,
+        deleteTech,
         setTechs,
+        editTech,
       }}
     >
       {children}

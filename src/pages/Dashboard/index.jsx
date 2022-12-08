@@ -16,21 +16,25 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { TechContext } from "../../context/TechContext";
 import { MainContext } from "../../context/MainProvider";
+import { UserContext } from "../../context/UserContext";
+import { Modal } from "../../components/Modal";
 
 export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
+  const [showBtns, setShowBtns] = useState(false);
   const {
     getUserModule,
     getUserName,
     getUserTechs,
-    user,
-
-    userUpdate,
+    deleteTech,
+    getUser,
     techs,
+    editTech,
   } = useContext(TechContext);
+  const { user, token } = useContext(UserContext);
   const { notify } = useContext(MainContext);
 
   function deleteToken() {
@@ -51,12 +55,6 @@ export function Dashboard() {
     resolver: yupResolver(techSchema),
   });
 
-  // function getUserTechs() {
-  //   const user = JSON.parse(window.localStorage.getItem("user"));
-
-  //   return user && setTechs(user.techs);
-  // }
-
   function submitApi(data) {
     async function createTech() {
       const token = window.localStorage.getItem("token");
@@ -68,7 +66,7 @@ export function Dashboard() {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then(() => userUpdate());
+          .then(() => getUser());
         reset();
         notify("Criado com sucesso");
 
@@ -103,11 +101,15 @@ export function Dashboard() {
       setLoading(false);
     }
   }
-  console.log(techs);
+  function modalShow(id) {
+    console.log(id);
+    id && setShowBtns(true);
+    return id;
+  }
   useEffect(() => {
     showProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token]);
   return loading ? null : (
     <>
       <Header isButton={true} onclick={deleteToken} text={"Sair"}></Header>
@@ -151,10 +153,17 @@ export function Dashboard() {
         )}
         <ul>
           {techs.map((t) => (
-            <li key={t.id}>
-              <p>{t.title}</p>
-              <span>{t.status}</span>
-            </li>
+            <div key={t.id} className="divRelative">
+              <li id={t.id} key={t.id}>
+                <div id={t.id}>
+                  <p>{t.title}</p>
+                  <span>{t.status}</span>
+                  <button id={t.id} onClick={(e) => deleteTech(e.target.id)}>
+                    deletar
+                  </button>
+                </div>
+              </li>
+            </div>
           ))}
         </ul>
       </StyledMain>
