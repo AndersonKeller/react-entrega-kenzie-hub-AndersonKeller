@@ -18,7 +18,6 @@ export function Modal({ setShowModal, showModal }) {
   const { user } = useContext(UserContext);
   const { loading, setLoading, getUser } = useContext(TechContext);
   const id = window.localStorage.getItem("idModal");
-  console.log(loading);
   const tech = user.techs.find((t) => t.id === id);
 
   const editTechSchema = yup.object().shape({
@@ -32,15 +31,14 @@ export function Modal({ setShowModal, showModal }) {
     reset,
   } = useForm({
     mode: "onBlur",
+
     resolver: yupResolver(editTechSchema),
   });
   function editTechApi(data) {
-    console.log(data);
     editTech(data);
     setLoading(!loading);
   }
   function editTech(data) {
-    console.log(data);
     async function editApi() {
       const token = window.localStorage.getItem("token");
       const id = window.localStorage.getItem("idModal");
