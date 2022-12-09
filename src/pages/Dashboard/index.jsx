@@ -23,7 +23,7 @@ export function Dashboard() {
   const [showForm, setShowForm] = useState(false);
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const {
     getUserModule,
@@ -32,6 +32,8 @@ export function Dashboard() {
     deleteTech,
     getUser,
     techs,
+    loading,
+    setLoading,
   } = useContext(TechContext);
   const { user, token } = useContext(UserContext);
   const { notify } = useContext(MainContext);
@@ -85,6 +87,31 @@ export function Dashboard() {
   useEffect(() => {
     getUserTechs();
   }, [user]);
+  function editTech(data) {
+    console.log(data);
+    async function editApi() {
+      const token = window.localStorage.getItem("token");
+      const id = window.localStorage.getItem("idModal");
+      try {
+        setLoading(true);
+        await api.put(`/users/techs/${id}`, data, {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        });
+        notify("Editado");
+        setTimeout(() => {
+          setShowModal(false);
+        }, 3000);
+        getUser();
+      } catch (error) {
+        notify("algo deu errado", "error");
+      } finally {
+        setLoading(false);
+      }
+    }
+    editApi();
+  }
   async function showProfile() {
     const token = window.localStorage.getItem("token");
     try {
@@ -101,7 +128,6 @@ export function Dashboard() {
     }
   }
   function modalShow(id) {
-    console.log(id);
     window.localStorage.setItem("idModal", id);
     setShowModal(!showModal);
   }
@@ -168,7 +194,7 @@ export function Dashboard() {
             </div>
           ))}
         </ul>
-        {showModal && <Modal></Modal>}
+        {showModal && <Modal editTech={editTech}></Modal>}
       </StyledMain>
     </>
   );

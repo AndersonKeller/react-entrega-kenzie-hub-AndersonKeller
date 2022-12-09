@@ -12,8 +12,8 @@ import { SelectLevel } from "../SelectLevel";
 import { StyledModal } from "./style";
 import { UserContext } from "../../context/UserContext";
 import { useState } from "react";
-export function Modal() {
-  const { deleteTech, editTech } = useContext(TechContext);
+export function Modal({ editTech }) {
+  const { deleteTech } = useContext(TechContext);
   const { user } = useContext(UserContext);
   const { loading, setLoading } = useContext(TechContext);
   const id = window.localStorage.getItem("idModal");
@@ -48,7 +48,12 @@ export function Modal() {
             register={register("title")}
           ></Input>
           <SelectLevel register={register("status")}></SelectLevel>
-          <Button text={"Alterar"} type={"submit"} color={"default"}></Button>
+          <Button
+            loading={loading}
+            text={"Alterar"}
+            type={"submit"}
+            color={"default"}
+          ></Button>
         </Form>
       </StyledModal>
     )
