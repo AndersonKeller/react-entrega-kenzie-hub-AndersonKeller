@@ -35,13 +35,15 @@ export function TechProvider({ children }) {
     getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  function editTech(id) {
+  function editTech(data) {
+    console.log(data);
     async function editApi() {
       const token = window.localStorage.getItem("token");
+      const id = window.localStorage.getItem("idModal");
       try {
-        await api.put(`/users/techs/${id}`, {
+        await api.put(`/users/techs/${id}`, data, {
           headers: {
-            application: `Bearer ${token}`,
+            authorization: `Bearer ${token}`,
           },
         });
         notify("Editado");

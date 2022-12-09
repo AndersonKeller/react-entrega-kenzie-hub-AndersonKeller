@@ -11,7 +11,6 @@ import { UserContext } from "../../context/UserContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { TechContext } from "../../context/TechContext";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -19,9 +18,8 @@ export function Login() {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  const { notify, token, defineUser } = useContext(UserContext);
-  console.log(loading);
-  const { getUSer } = useContext(TechContext);
+  const { notify, defineUser } = useContext(UserContext);
+
   const loginSchema = yup.object().shape({
     email: yup.string().required("email obrigatório").email("formato inválido"),
     password: yup.string().required("senha obrigatória"),

@@ -40,6 +40,7 @@ export const StyledMain = styled.main`
     gap: 1rem;
     background-color: var(--color-gray3);
     padding: 0.5rem;
+    position: relative;
   }
   ul li {
     width: 100%;

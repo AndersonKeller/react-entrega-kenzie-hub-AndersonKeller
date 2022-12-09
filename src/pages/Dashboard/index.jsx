@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Modal } from "../../components/Modal";
 
 import { StyledButton } from "../../components/Button/styles";
 import { Button } from "../../components/Button";
@@ -23,7 +24,7 @@ export function Dashboard() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
-  //const [showBtns, setShowBtns] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const {
     getUserModule,
     getUserName,
@@ -99,11 +100,11 @@ export function Dashboard() {
       setLoading(false);
     }
   }
-  // function modalShow(id) {
-  //   console.log(id);
-  //   id && setShowBtns(true);
-  //   return id;
-  // }
+  function modalShow(id) {
+    console.log(id);
+    window.localStorage.setItem("idModal", id);
+    setShowModal(!showModal);
+  }
   useEffect(() => {
     showProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -156,6 +157,9 @@ export function Dashboard() {
                 <div id={t.id}>
                   <p>{t.title}</p>
                   <span>{t.status}</span>
+                  <button id={t.id} onClick={(e) => modalShow(e.target.id)}>
+                    Editar
+                  </button>
                   <button id={t.id} onClick={(e) => deleteTech(e.target.id)}>
                     deletar
                   </button>
@@ -164,6 +168,7 @@ export function Dashboard() {
             </div>
           ))}
         </ul>
+        {showModal && <Modal></Modal>}
       </StyledMain>
     </>
   );
