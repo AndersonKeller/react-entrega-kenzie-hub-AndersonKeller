@@ -11,18 +11,17 @@ import { UserContext } from "../../context/UserContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { TechContext } from "../../context/TechContext";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export function Login() {
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
-  const {
-    notify,
-    token,
-    defineUser,
-
-    loading,
-
-    setLoading,
-  } = useContext(UserContext);
+  const { notify, token, defineUser } = useContext(UserContext);
+  console.log(loading);
+  const { getUSer } = useContext(TechContext);
   const loginSchema = yup.object().shape({
     email: yup.string().required("email obrigatório").email("formato inválido"),
     password: yup.string().required("senha obrigatória"),
@@ -63,6 +62,17 @@ export function Login() {
     }
 
     loginApi();
+  }
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard");
+    }
+    setLoading(false);
+  }, [navigate]);
+
+  if (loading) {
+    return null;
   }
   return (
     <>
