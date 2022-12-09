@@ -36,14 +36,12 @@ export function Modal({ setShowModal, showModal }) {
   });
   function editTechApi(data) {
     editTech(data);
-    setLoading(!loading);
   }
   function editTech(data) {
     async function editApi() {
       const token = window.localStorage.getItem("token");
       const id = window.localStorage.getItem("idModal");
       try {
-        setLoading(true);
         await api.put(`/users/techs/${id}`, data, {
           headers: {
             authorization: `Bearer ${token}`,
@@ -57,7 +55,7 @@ export function Modal({ setShowModal, showModal }) {
       } catch (error) {
         notify("algo deu errado", "error");
       } finally {
-        setLoading(false);
+        setShowModal(false);
       }
     }
     editApi();
