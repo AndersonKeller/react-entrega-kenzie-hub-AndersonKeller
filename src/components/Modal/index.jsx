@@ -9,14 +9,14 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectLevel } from "../SelectLevel";
-import { StyledModal } from "./style";
+import { StyledModal, StyledModalWrapper } from "./style";
 import { UserContext } from "../../context/UserContext";
-import { useState } from "react";
+
 import { MainContext } from "../../context/MainProvider";
 export function Modal({ setShowModal, showModal }) {
   const { notify } = useContext(MainContext);
   const { user } = useContext(UserContext);
-  const { loading, setLoading, getUser } = useContext(TechContext);
+  const { loading, getUser } = useContext(TechContext);
   const id = window.localStorage.getItem("idModal");
   const tech = user.techs.find((t) => t.id === id);
 
@@ -28,7 +28,6 @@ export function Modal({ setShowModal, showModal }) {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     mode: "onBlur",
 
@@ -60,26 +59,29 @@ export function Modal({ setShowModal, showModal }) {
     }
     editApi();
   }
-  return loading ? null : (
-    <StyledModal id={tech.id}>
-      <Form onSubmit={handleSubmit(editTechApi)}>
-        <Input
-          value={tech.title}
-          label={"Tecnologia"}
-          register={register("title")}
-        ></Input>
-        <SelectLevel
-          errorMsg={errors.status?.message && errors.status.message}
-          register={register("status")}
-        ></SelectLevel>
 
-        <Button
-          loading={loading}
-          text={"Alterar"}
-          type={"submit"}
-          color={"default"}
-        ></Button>
-      </Form>
-    </StyledModal>
+  return loading ? null : (
+    <StyledModalWrapper>
+      <StyledModal id={tech.id}>
+        <Form onSubmit={handleSubmit(editTechApi)}>
+          <Input
+            value={tech.title}
+            label={"Tecnologia"}
+            register={register("title")}
+          ></Input>
+          <SelectLevel
+            errorMsg={errors.status?.message && errors.status.message}
+            register={register("status")}
+          ></SelectLevel>
+
+          <Button
+            loading={loading}
+            text={"Alterar"}
+            type={"submit"}
+            color={"default"}
+          ></Button>
+        </Form>
+      </StyledModal>
+    </StyledModalWrapper>
   );
 }

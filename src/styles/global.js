@@ -29,8 +29,8 @@ export const GLobalStyles = createGlobalStyle`
     body{
         font-family: 'Inter', sans-serif;
         background-color: #000;
-        padding: 0 1rem;
-        width: 300px;
+        padding: 0 0.5rem;
+        width: 320px;
         margin: 0 auto;
     }
     button,a{

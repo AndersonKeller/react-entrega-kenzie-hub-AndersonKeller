@@ -107,6 +107,7 @@ export function Dashboard() {
     window.localStorage.setItem("idModal", id);
     setShowModal(!showModal);
   }
+
   useEffect(() => {
     showProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -159,6 +160,8 @@ export function Dashboard() {
                 <div id={t.id}>
                   <p>{t.title}</p>
                   <span>{t.status}</span>
+                </div>
+                <div className="divBtns">
                   <button id={t.id} onClick={(e) => modalShow(e.target.id)}>
                     Editar
                   </button>

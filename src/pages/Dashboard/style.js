@@ -39,17 +39,17 @@ export const StyledMain = styled.main`
     flex-direction: column;
     gap: 1rem;
     background-color: var(--color-gray3);
-    padding: 0.5rem;
+    padding: 0 0.5rem;
     position: relative;
   }
   ul li {
     width: 100%;
     display: flex;
-    flex-direction: column;
+
     justify-content: space-between;
     align-items: center;
     background-color: var(--color-gray4);
-    padding: 0.75rem;
+
     border-radius: 4px;
     cursor: pointer;
 
@@ -64,16 +64,39 @@ export const StyledMain = styled.main`
   li div {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+
+    width: 40%;
+    gap: 1rem;
+    overflow: hidden;
+    flex-direction: column;
   }
   li button {
     color: var(--color-gray0);
   }
-  .divRelative {
-    position: relative;
+  .divBtns {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
   }
+
   .divBtns button {
     color: var(--color-gray0);
+  }
+  @media (min-width: 760px) {
+    .divBtns {
+      flex-direction: row;
+      width: 40%;
+      transition: 1s ease;
+    }
+    li div {
+      flex-direction: row;
+      width: 50%;
+    }
+  }
+  @media (max-width: 759px) {
+    .divBtns {
+      transition: 1s ease;
+    }
   }
 `;
 
