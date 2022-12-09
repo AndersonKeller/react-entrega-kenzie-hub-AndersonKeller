@@ -87,31 +87,7 @@ export function Dashboard() {
   useEffect(() => {
     getUserTechs();
   }, [user]);
-  function editTech(data) {
-    console.log(data);
-    async function editApi() {
-      const token = window.localStorage.getItem("token");
-      const id = window.localStorage.getItem("idModal");
-      try {
-        setLoading(true);
-        await api.put(`/users/techs/${id}`, data, {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        });
-        notify("Editado");
-        setTimeout(() => {
-          setShowModal(false);
-        }, 3000);
-        getUser();
-      } catch (error) {
-        notify("algo deu errado", "error");
-      } finally {
-        setLoading(false);
-      }
-    }
-    editApi();
-  }
+
   async function showProfile() {
     const token = window.localStorage.getItem("token");
     try {
@@ -194,7 +170,9 @@ export function Dashboard() {
             </div>
           ))}
         </ul>
-        {showModal && <Modal editTech={editTech}></Modal>}
+        {showModal && (
+          <Modal showModal={showModal} setShowModal={setShowModal}></Modal>
+        )}
       </StyledMain>
     </>
   );
