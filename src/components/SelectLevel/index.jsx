@@ -1,6 +1,6 @@
 import { StyledSelect } from "../../styles/StyledSelect";
 
-export function SelectLevel({ name, register, id, errorMsg }) {
+export function SelectLevel({ value, name, register, id, errorMsg }) {
   return (
     <>
       <StyledSelect margin={"1rem"} id={id} name={name} {...register}>

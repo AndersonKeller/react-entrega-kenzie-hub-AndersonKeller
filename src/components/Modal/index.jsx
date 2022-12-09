@@ -11,11 +11,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectLevel } from "../SelectLevel";
 import { StyledModal } from "./style";
 import { UserContext } from "../../context/UserContext";
+import { useState } from "react";
 export function Modal() {
   const { deleteTech, editTech } = useContext(TechContext);
   const { user } = useContext(UserContext);
+  const { loading, setLoading } = useContext(TechContext);
   const id = window.localStorage.getItem("idModal");
-
+  console.log(loading);
   const tech = user.techs.find((t) => t.id === id);
 
   const editTechSchema = yup.object().shape({
@@ -34,20 +36,21 @@ export function Modal() {
   function editTechApi(data) {
     console.log(data);
     editTech(data);
+    setLoading(!loading);
   }
   return (
-    <StyledModal id={tech.id}>
-      <Form onSubmit={handleSubmit(editTechApi)}>
-        <Input
-          value={tech.title}
-          label={"Tecnologia"}
-          register={register("title")}
-        ></Input>
-        <SelectLevel register={register("status")}></SelectLevel>
-        <button type={"submit"} color={"default"}>
-          ALterar
-        </button>
-      </Form>
-    </StyledModal>
+    !loading && (
+      <StyledModal id={tech.id}>
+        <Form onSubmit={handleSubmit(editTechApi)}>
+          <Input
+            value={tech.title}
+            label={"Tecnologia"}
+            register={register("title")}
+          ></Input>
+          <SelectLevel register={register("status")}></SelectLevel>
+          <Button text={"Alterar"} type={"submit"} color={"default"}></Button>
+        </Form>
+      </StyledModal>
+    )
   );
 }

@@ -41,14 +41,18 @@ export function TechProvider({ children }) {
       const token = window.localStorage.getItem("token");
       const id = window.localStorage.getItem("idModal");
       try {
+        setLoading(true);
         await api.put(`/users/techs/${id}`, data, {
           headers: {
             authorization: `Bearer ${token}`,
           },
         });
         notify("Editado");
+        getUser();
       } catch (error) {
         notify("algo deu errado", "error");
+      } finally {
+        setLoading(false);
       }
     }
     editApi();
@@ -100,6 +104,8 @@ export function TechProvider({ children }) {
         deleteTech,
         setTechs,
         editTech,
+        loading,
+        setLoading,
       }}
     >
       {children}
