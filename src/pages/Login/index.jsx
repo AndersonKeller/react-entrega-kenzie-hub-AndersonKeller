@@ -18,7 +18,7 @@ export function Login() {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  const { notify, defineUser } = useContext(UserContext);
+  const { notify, defineUser, user } = useContext(UserContext);
 
   const loginSchema = yup.object().shape({
     email: yup.string().required("email obrigatório").email("formato inválido"),
@@ -62,11 +62,11 @@ export function Login() {
     loginApi();
   }
   useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    if (token) {
+    if (user) {
       navigate("/dashboard");
     }
     setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   if (loading) {
