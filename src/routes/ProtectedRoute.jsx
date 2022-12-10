@@ -11,5 +11,5 @@ export function ProtectedRoute() {
     return null;
   }
 
-  return user ? <Outlet /> : <Navigate to={"/login"} />;
+  return user ? <Outlet /> : <Navigate to={"/login"} replace={true} />;
 }
